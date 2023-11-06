@@ -1,29 +1,27 @@
-.tete_page{
+.container{
     display: flex;
     border: black 3px solid;
     height: 10%;
 }
 
-.connexion{
+.logo{
     display: block;
     width: 20%;
-    text-align: center;
     border: grey 1px solid;
 }
 
-.Entete{
-    display: flex;
-    text-align: left;
-    border: grey 1px solid;
-}
-
-.Entete img{
-    width: 10%;
-    height: 10%;
-}
-
-#maRecherche{
+.accueil{
     display: block;
-    text-align: right;
+    width: 60%;
     border: grey 1px solid;
+}
+
+.recherche{
+    display: block;
+    border: grey 1px solid;
+}
+
+img {
+    width: 100%;
+    height: 100%;
 }
