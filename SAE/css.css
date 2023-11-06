@@ -19,6 +19,7 @@
 .recherche{
     display: block;
     border: grey 1px solid;
+    padding: 1%;
 }
 
 img {
