@@ -3,6 +3,7 @@
 <head>
     <title>Page d'accueil</title>
     <meta charset="utf-8">
+    
 <body>
 
 <link rel='stylesheet' href='css.css'>
@@ -12,14 +13,9 @@
     <div class='Entete'>ACCUEIL</div>
         <form>
          <div>
-           <input
-            type = "search"
-            id="maRecherche"
-            name="q"
-            placeholder="Chercher" />
+             <label for="maRecherche"></label><input type = "search" id="maRecherche" name="q" placeholder="Chercher"/>
          </div>
         </form>
-    </div>
 
 </body>
 </html>
