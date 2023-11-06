@@ -5,15 +5,20 @@
     <meta charset="utf-8">
 <body>
 
-<?php
-
-echo "<link rel='stylesheet' href='css.css'>
+<link rel='stylesheet' href='css.css'>
     <div class='tete_page'>
     <div class='connexion'>Touiter</div>
     <div class='bb'>ACCUEIL Quoi de neuf? Publier</div>
-    <div class='recherche'>Barre de recherche</div>
-    </div>"
-?>
+        <form>
+         <div>
+           <input
+            type = "search"
+            id="maRecherche"
+            name="q"
+            placeholder="Chercher" />
+         </div>
+        </form>
+    </div>
 
 </body>
 </html>
