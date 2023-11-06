@@ -3,7 +3,7 @@
 <head>
     <title>Page d'accueil</title>
     <meta charset="utf-8">
-    
+    <link rel="shortcut icon" href="img/twitter-logo.jpg" />
 <body>
 
 <link rel='stylesheet' href='css.css'>
