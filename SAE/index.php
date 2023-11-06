@@ -6,9 +6,10 @@
 <body>
 
 <link rel='stylesheet' href='css.css'>
-    <div class='tete_page'>
-    <div class='connexion'>Touiter</div>
-    <div class='bb'>ACCUEIL Quoi de neuf? Publier</div>
+    <div class='Entete'>
+        <img src="img/Logo.png" alt="Le logo principal"/>
+    </div>
+    <div class='Entete'>ACCUEIL</div>
         <form>
          <div>
            <input

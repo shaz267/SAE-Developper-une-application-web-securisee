@@ -11,16 +11,21 @@
     border: grey 1px solid;
 }
 
-.bb{
+.Entete{
     display: block;
     width: 60%;
     text-align: center;
     border: grey 1px solid;
 }
 
+image{
+    width: 100%;
+    height: 100%;
+}
+
 #maRecherche{
     display: block;
-    width: 100%;
+    width: 20%;
     text-align: center;
     border: grey 1px solid;
 }
