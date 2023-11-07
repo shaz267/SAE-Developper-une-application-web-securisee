@@ -14,7 +14,7 @@ class TouitesAction extends Action
 
         $pdo = ConnectionFactory::makeConnection();
 
-        $sql = "SELECT * FROM touite ORDER BY date DESC";
+        $sql = "SELECT * FROM touite";
         $stmt = $pdo->prepare($sql);
         $stmt->execute();
         $touites = $stmt->fetchAll();
