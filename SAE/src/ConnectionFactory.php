@@ -1,7 +1,5 @@
 <?php
 
-use PDO;
-
 class ConnectionFactory
 {
     public static $config = [];
