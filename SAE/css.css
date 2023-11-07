@@ -17,10 +17,16 @@
     border: grey 1px solid;
 }
 
+.loupe{
+    display: block;
+    width: 4%;
+    height: 75%;
+    padding-top: 1%;
+}
+
 .recherche{
     display: block;
-    border: grey 1px solid;
-    padding: 1%;
+    padding-top: 1%;
 }
 
 img {
