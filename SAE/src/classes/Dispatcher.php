@@ -31,6 +31,8 @@ class Dispatcher
                 break;
             default:
 
+
+
                 $this->renderPage($html);
 
         }
