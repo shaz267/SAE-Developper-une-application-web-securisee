@@ -36,6 +36,8 @@
             <p><a href="deconnexion.php">Deconnexion</a></p>
         </div>
         <div class="deffilementTouite">
+            <div class="touite">
+                <h1>Profil du touitos</h1>
             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse vel dui metus. Sed
             facilisis nunc a felis placerat, in venenatis quam placerat. Sed fringilla mauris id eros
             consectetur, a tincidunt nunc venenatis. Nulla leo nunc, vestibulum eu justo non, viverra tincidunt
@@ -58,7 +60,7 @@
             Aliquam erat volutpat. Aenean ut nisl pulvinar, venenatis diam et,
             volutpat justo. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus
             mus. Nunc in aliquet ex, ac rhoncus elit. Donec.
-
+            </div>
         </div>
     </div>
     <aside>

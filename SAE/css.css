@@ -8,13 +8,14 @@
 .logo{
     display: block;
     width: 10%;
-    border: grey 1px solid;
+    border-right: grey 1px solid;
 }
 
 .accueil{
     display: block;
     width: 60%;
-    border: grey 1px solid;
+    text-align: center;
+    border-right: grey 1px solid;
 }
 
 .loupe{
@@ -26,7 +27,7 @@
 
 .recherche{
     display: block;
-    padding-top: 1%;
+    padding-top: 2%;
 }
 
 img {
@@ -52,4 +53,10 @@ img {
     border: grey 1px solid;
     height: 100%;
     width: 60%;
+}
+
+.touite{
+    display: block;
+    border-bottom: grey 1px solid;
+    width: 100%;
 }
