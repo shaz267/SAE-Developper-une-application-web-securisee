@@ -36,16 +36,14 @@ img {
 }
 
 .liens {
-    display: flex;
-    flex-direction: column; /* Aligner les liens verticalement */
-    border: 1px solid grey;
-    height: 100%;
-    width: 100%;
+    display: block;
+    border: grey 1px solid;
+    width: 10%;
 }
 
-.touite {
-    display: flex;
-    border: 1px solid grey;
+.deffilementTouite {
+    display: block;
+    border: grey 1px solid;
     height: 100%;
-    width: 80%;
+    width: 60%;
 }
