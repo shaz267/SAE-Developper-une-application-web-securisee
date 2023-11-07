@@ -3,9 +3,9 @@
 require_once 'vendor\autoload.php';
 
 use touiteur\classes\ConnectionFactory;
+use touiteur\classes\Dispatcher;
 
 ConnectionFactory::setConfig('db_config.ini');
 
-$pdo = ConnectionFactory::makeConnection();
-
-echo "Connexion réussie !";
+$dispatcher = new Dispatcher();
+$dispatcher->run();

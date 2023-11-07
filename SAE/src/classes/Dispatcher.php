@@ -9,7 +9,6 @@ class Dispatcher
 {
 
     private $action;
-    private $html;
 
     public function __construct()
     {
@@ -17,21 +16,22 @@ class Dispatcher
             $this->action = $_GET["action"];
         else
             $this->action = "";
-        $this->html = "";
     }
 
     public function run()
     {
 
+        $html = "";
+
         switch ($this->action) {
             case 'TouitesAction':
                 $tA = new TouitesAction();
-                $this->html = $tA->execute();
-                $this->renderPage($this->html);
+                $html = $tA->execute();
+                $this->renderPage($html);
                 break;
             default:
 
-                $this->renderPage($this->html);
+                $this->renderPage($html);
 
         }
     }
@@ -40,7 +40,6 @@ class Dispatcher
     {
         echo <<<HTML
             <html lang="fr">
-
                 <head>
                     <title>Page d'accueil</title>
                     <meta charset="utf-8">
@@ -48,7 +47,7 @@ class Dispatcher
                 </head>
                 <body>
                 <header>
-                    <link rel='stylesheet' href='css.css'>
+                    <link rel='stylesheet' href='src\css.css'>
                     <div class='container'>
                         <div class='logo'>
                             <a href="?action=TouitesAction">
@@ -70,7 +69,7 @@ class Dispatcher
                 <section>
                     <div class="touites">
                 
-                        $this->html
+                        $html
                     </div>
                     <aside>
                         <div>
