@@ -47,7 +47,7 @@ class Dispatcher
                 </head>
                 <body>
                 <header>
-                    <link rel='stylesheet' href='src\css.css'>
+                    <link rel='stylesheet' href='src/css/Index.css'>
                     <div class='container'>
                         <div class='logo'>
                             <a href="?action=TouitesAction">

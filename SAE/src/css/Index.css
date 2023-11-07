@@ -49,6 +49,13 @@ img {
     border-bottom: black 3px solid;
     height: 70%;
     width: 100%;
+    transition: background-color 0.5s;
+}
+
+.touite:hover{
+    cursor: pointer;
+    background-color: #e8e8e8;
+    transition: background-color 0.5s;
 }
 
 .liens {

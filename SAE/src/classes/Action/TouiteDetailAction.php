@@ -16,7 +16,7 @@ class TouiteDetailAction extends Action
         </head>
         <body>
         <header>
-            <link rel='stylesheet' href='../../TouiteDetail.css'>
+            <link rel='stylesheet' href='../../css/TouiteDetail.css'>
             <div class='container'>
                 <div class='logo'>
                     <a href="?action=TouiteAction.php">
