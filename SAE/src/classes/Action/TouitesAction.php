@@ -1,6 +1,6 @@
 <?php
 
-namespace Action;
+use Action\Action;
 
 class TouitesAction extends Action
 {

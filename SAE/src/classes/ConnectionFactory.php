@@ -1,6 +1,8 @@
 <?php
+namespace iutnc\touiteur\classes\ConnectionFactory;
+require_once '..\..\vendor\autoload.php';
 
-namespace src\classes;
+use PDO;
 class ConnectionFactory
 {
     public static $config = [];

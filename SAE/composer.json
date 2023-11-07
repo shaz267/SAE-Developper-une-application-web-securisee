@@ -1,11 +1,13 @@
 {
-  "name": "SAE/",
+  "name": "iutnc/touiteur",
   "description": "le m",
   "type": "project",
   "autoload": {
     "psr-4": {
-      "\\src" : "./src",
-      "\\src\\classes\\" : "./src/classes"
+      "iutnc\\touiteur\\": "./src/ "
     }
+  },
+  "require": {
+    "ext-pdo": "*"
   }
 }
