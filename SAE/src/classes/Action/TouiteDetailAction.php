@@ -12,20 +12,20 @@ class TouiteDetailAction extends Action
         <head>
             <title>Page d'accueil</title>
             <meta charset="utf-8">
-            <link rel="shortcut icon" href="../../img/twitter-logo.png"/>
+            <link rel="shortcut icon" href="../../../img/twitter-logo.png"/>
         </head>
         <body>
         <header>
-            <link rel='stylesheet' href='../TouiteDetail.css'>
+            <link rel='stylesheet' href='../../TouiteDetail.css'>
             <div class='container'>
                 <div class='logo'>
-                    <a href="../index.php">
-                        <img src="../../img/logo.png" alt="Le logo principal"/>
+                    <a href="?action=TouiteAction.php">
+                        <img src="../../../img/logo.png" alt="Le logo principal"/>
                     </a>
                 </div>
                 <div class='accueil'></div>
                 <div class="loupe">
-                    <img src="../../img/loupe.png" alt="Recherche"/>
+                    <img src="../../../img/loupe.png" alt="Recherche"/>
                 </div>
                 <div class="recherche">
                     <label>
@@ -40,7 +40,7 @@ class TouiteDetailAction extends Action
         
                 <div class="liens">
                     <ul id="choix">
-                        <li><a href="../index.php">Accueil</a></li>
+                        <li><a href="?action=TouiteAction.php">Accueil</a></li>
                     </ul>
                 </div>
                 <div class="deffilementTouite">
@@ -69,8 +69,8 @@ class TouiteDetailAction extends Action
                         volutpat justo. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus
                         mus. Nunc in aliquet ex, ac rhoncus elit. Donec.
                         <br>
-                        <img id="like" src="../../img/like.png" alt="Boutton de like">
-                        <img id="dislike" src="../../img/dislike.png" alt="Boutton de dislike">
+                        <img id="like" src="../../../img/like.png" alt="Boutton de like">
+                        <img id="dislike" src="../../../img/dislike.png" alt="Boutton de dislike">
                     </div>
                     <div class="Commentaire">
                         <h2>Commentaires</h2>
@@ -98,31 +98,31 @@ class TouiteDetailAction extends Action
                         <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin hendrerit nec est id elementum. Nulla
                             varius enim ac enim accumsan gravida. Vestibulum gravida nisl quis ligula bibendum ornare. Fusce
                             scelerisque mi at dolor dapibus aliquet.</p>
-                        <h3>user6</h3>
+                        <h3>user7</h3>
                         <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin hendrerit nec est id elementum. Nulla
                             varius enim ac enim accumsan gravida. Vestibulum gravida nisl quis ligula bibendum ornare. Fusce
                             scelerisque mi at dolor dapibus aliquet.</p>
-                        <h3>user6</h3>
+                        <h3>user8</h3>
                         <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin hendrerit nec est id elementum. Nulla
                             varius enim ac enim accumsan gravida. Vestibulum gravida nisl quis ligula bibendum ornare. Fusce
                             scelerisque mi at dolor dapibus aliquet.</p>
-                        <h3>user6</h3>
+                        <h3>user9</h3>
                         <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin hendrerit nec est id elementum. Nulla
                             varius enim ac enim accumsan gravida. Vestibulum gravida nisl quis ligula bibendum ornare. Fusce
                             scelerisque mi at dolor dapibus aliquet.</p>
-                        <h3>user6</h3>
+                        <h3>user10</h3>
                         <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin hendrerit nec est id elementum. Nulla
                             varius enim ac enim accumsan gravida. Vestibulum gravida nisl quis ligula bibendum ornare. Fusce
                             scelerisque mi at dolor dapibus aliquet.</p>
-                        <h3>user6</h3>
+                        <h3>user11</h3>
                         <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin hendrerit nec est id elementum. Nulla
                             varius enim ac enim accumsan gravida. Vestibulum gravida nisl quis ligula bibendum ornare. Fusce
                             scelerisque mi at dolor dapibus aliquet.</p>
-                        <h3>user6</h3>
+                        <h3>user12</h3>
                         <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin hendrerit nec est id elementum. Nulla
                             varius enim ac enim accumsan gravida. Vestibulum gravida nisl quis ligula bibendum ornare. Fusce
                             scelerisque mi at dolor dapibus aliquet.</p>
-                        <h3>user6</h3>
+                        <h3>user13</h3>
                         <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin hendrerit nec est id elementum. Nulla
                             varius enim ac enim accumsan gravida. Vestibulum gravida nisl quis ligula bibendum ornare. Fusce
                             scelerisque mi at dolor dapibus aliquet.</p>
