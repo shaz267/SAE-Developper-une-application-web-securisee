@@ -1,11 +1,11 @@
 {
-  "name": "SAE/ss",
+  "name": "SAE/",
   "description": "le m",
   "type": "project",
   "autoload": {
     "psr-4": {
-      "SAE\\src" : "./src",
-      "spotibuz\\" : "./src/classes"
+      "SAE\\src" : "./SAE/src",
+      "SAE\\src\\classes\\" : "./SAE/src/classes"
     }
   }
 }
