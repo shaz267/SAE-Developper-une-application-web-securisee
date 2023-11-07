@@ -1,6 +1,7 @@
 <?php
 
-use Action\TouitesAction;
+use SAE\src\classes\TouitesAction;
+
 require_once 'vendor/autoload.php';
 
 spl_autoload_register(function ($class_name) {
