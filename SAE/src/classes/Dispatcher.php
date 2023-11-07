@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace src\classes;
 
+use Action\TouitesAction;
 use \src\classes\ConnectionFactory;
 
 require_once 'vendor/autoload.php';
