@@ -1,26 +1,41 @@
+body{
+    margin: 1px;
+    padding: 1px;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+
 .container{
     display: flex;
     border: black 3px solid;
     height: 10%;
     width: 100%;
+
 }
 
 .logo{
     display: block;
-    width: 10%;
-    border: grey 1px solid;
+    width: 15%;
+    border-right: grey 1px solid;
 }
 
 .accueil{
     display: block;
-    width: 60%;
-    border: grey 1px solid;
+    width: 70%;
+    text-align: center;
+    border-right: grey 1px solid;
+}
+
+.loupe{
+    display: block;
+    width: 4%;
+    height: 75%;
+    padding-top: 1%;
 }
 
 .recherche{
     display: block;
-    border: grey 1px solid;
-    padding: 1%;
+    padding-top: 2%;
 }
 
 img {
@@ -37,13 +52,19 @@ img {
 
 .liens {
     display: block;
-    border: grey 1px solid;
-    width: 10%;
+    border-right: grey 1px solid;
+    width: 15%;
 }
 
 .deffilementTouite {
     display: block;
     border: grey 1px solid;
     height: 100%;
-    width: 60%;
+    width: 70%;
+}
+
+.touite{
+    display: block;
+    border-bottom: grey 1px solid;
+    width: 100%;
 }
