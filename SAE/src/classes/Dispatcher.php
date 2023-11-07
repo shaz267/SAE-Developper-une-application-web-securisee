@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace touiteur\classes;
 
+use touiteur\classes\Action\TouiteDetailAction;
 use touiteur\classes\Action\TouitesAction;
 
 class Dispatcher
@@ -27,6 +28,11 @@ class Dispatcher
             case 'TouitesAction':
                 $tA = new TouitesAction();
                 $html = $tA->execute();
+                $this->renderPage($html);
+                break;
+            case 'TouiteDetailAction':
+                $tDA = new TouiteDetailAction();
+                $html = $tDA->execute();
                 $this->renderPage($html);
                 break;
             default:

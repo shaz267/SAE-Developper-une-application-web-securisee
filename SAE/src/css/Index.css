@@ -50,12 +50,12 @@ img {
     width: 100%;
 }
 
-.touites #index{
+#index .touites{
     border-bottom: black 3px solid;
     transition: background-color 0.5s;
 }
 
-.touite:hover #index{
+#index .touite:hover{
     cursor: pointer;
     background-color: #e8e8e8;
     transition: background-color 0.5s;

@@ -30,9 +30,9 @@ class TouitesAction extends Action
                      </ul>
                  </div>
                  <div class="deffilementTouite">
-                     <div class="touite">
+                     
                         $html
-                     </div>
+                     
                  </div>
                  </div>
                  HTML;
