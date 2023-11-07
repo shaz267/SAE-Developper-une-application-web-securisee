@@ -8,36 +8,7 @@ class TouiteDetailAction extends Action
     public function execute(): string
     {
         return <<<HTML
-        <html lang="fr">
-        <head>
-            <title>Page d'accueil</title>
-            <meta charset="utf-8">
-            <link rel="shortcut icon" href="../../../img/twitter-logo.png"/>
-        </head>
-        <body>
-        <header>
-            <link rel='stylesheet' href='../../css/TouiteDetail.css'>
-            <div class='container'>
-                <div class='logo'>
-                    <a href="?action=TouiteAction.php">
-                        <img src="../../../img/logo.png" alt="Le logo principal"/>
-                    </a>
-                </div>
-                <div class='accueil'></div>
-                <div class="loupe">
-                    <img src="../../../img/loupe.png" alt="Recherche"/>
-                </div>
-                <div class="recherche">
-                    <label>
-                        <input type="search" placeholder="Chercher"/>
-                    </label>
-                </div>
-            </div>
-        </header>
-        
-        <section>
-            <div class="touites">
-        
+        <div class="touites" id="detail">
                 <div class="liens">
                     <ul id="choix">
                         <li><a href="?action=TouiteAction.php">Accueil</a></li>
@@ -69,8 +40,8 @@ class TouiteDetailAction extends Action
                         volutpat justo. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus
                         mus. Nunc in aliquet ex, ac rhoncus elit. Donec.
                         <br>
-                        <img id="like" src="../../../img/like.png" alt="Boutton de like">
-                        <img id="dislike" src="../../../img/dislike.png" alt="Boutton de dislike">
+                        <img id="like" src="img/like.png" alt="Boutton de like">
+                        <img id="dislike" src="img/dislike.png" alt="Boutton de dislike">
                     </div>
                     <div class="Commentaire">
                         <h2>Commentaires</h2>
@@ -131,16 +102,6 @@ class TouiteDetailAction extends Action
                     </div>
                 </div>
             </div>
-            <aside>
-                <div>
-        
-                </div>
-            </aside>
-        </section>
-        
-        
-        </body>
-        </html>
     HTML;
     }
 

@@ -69,15 +69,8 @@ class Dispatcher
                 </header>
                 
                 <section>
-                    <div class="touites">
-                
+                    
                         $html
-                    </div>
-                    <aside>
-                        <div>
-                
-                        </div>
-                    </aside>
                 </section>
                 
                 

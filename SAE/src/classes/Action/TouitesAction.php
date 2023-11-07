@@ -21,6 +21,7 @@ class TouitesAction extends Action
         $html = $this->renderTouites($touites);
 
         return  <<<HTML
+                 <div class="touites" id="index">
                  <div class="liens">
                      <ul id="choix">
                          <li><a href="?action=TouitesAction">Accueil</a></li>
@@ -32,6 +33,7 @@ class TouitesAction extends Action
                      <div class="touite">
                         $html
                      </div>
+                 </div>
                  </div>
                  HTML;
 
