@@ -11,10 +11,9 @@ class TouitesAction extends Action
         return  <<<HTML
                  <div class="liens">
                      <ul id="choix">
-                         <li><a href="?action=index.php">Accueil</a></li>
-                         <li><a href="profil.php">Profil</a></li>
-                         <li><a href="parametre.php">Parametre</a></li>
-                         <li><a href="deconnexion.php">Connexion</a></li>
+                         <li><a href="?action=TouitesAction">Accueil</a></li>
+                         <li><a href="?action=Connexion">Connexion</a></li>
+                         <li><a href="?action=">Inscription</a></li>
                      </ul>
                  </div>
                  <div class="deffilementTouite">
