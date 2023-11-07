@@ -3,7 +3,7 @@
 <head>
     <title>Page d'accueil</title>
     <meta charset="utf-8">
-    <link rel="shortcut icon" href="img/twitter-logo.png"/>
+    <link rel="shortcut icon" href="../img/twitter-logo.png"/>
 </head>
 <body>
 <header>
@@ -11,12 +11,12 @@
     <div class='container'>
         <div class='logo'>
             <a href="index.php">
-                <img src="img/logo.png" alt="Le logo principal"/>
+                <img src="../img/logo.png" alt="Le logo principal"/>
             </a>
         </div>
         <div class='accueil'><h1>ACCUEIL</h1></div>
         <div class="loupe">
-            <img src="img/loupe.png" alt="Recherche"/>
+            <img src="../img/loupe.png" alt="Recherche"/>
         </div>
         <div class="recherche">
             <label>
