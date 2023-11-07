@@ -2,11 +2,12 @@
     display: flex;
     border: black 3px solid;
     height: 10%;
+    width: 100%;
 }
 
 .logo{
     display: block;
-    width: 20%;
+    width: 10%;
     border: grey 1px solid;
 }
 
@@ -25,4 +26,26 @@
 img {
     width: 100%;
     height: 100%;
+}
+
+.touites{
+    display: flex;
+    border: black 3px solid;
+    height: 70%;
+    width: 100%;
+}
+
+.liens {
+    display: flex;
+    flex-direction: column; /* Aligner les liens verticalement */
+    border: 1px solid grey;
+    height: 100%;
+    width: 100%;
+}
+
+.touite {
+    display: flex;
+    border: 1px solid grey;
+    height: 100%;
+    width: 80%;
 }
