@@ -1,8 +1,6 @@
 <?php
 
-namespace src\Action;
-
-use Action\Action;
+namespace Action;
 
 class TouiteDetailAction extends Action
 {

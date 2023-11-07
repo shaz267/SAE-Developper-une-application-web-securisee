@@ -1,8 +1,8 @@
 <?php
 
-require_once '..\vendor\autoload.php';
+require_once 'vendor\autoload.php';
 
-use iutnc\touiteur\classes\ConnectionFactory;
+use touiteur\classes\ConnectionFactory;
 
 ConnectionFactory::setConfig('config.ini');
 

@@ -1,6 +1,5 @@
 <?php
-namespace iutnc\touiteur\classes\ConnectionFactory;
-require_once '..\..\vendor\autoload.php';
+namespace touiteur\classes;
 
 use PDO;
 class ConnectionFactory
