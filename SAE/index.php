@@ -4,7 +4,7 @@ require_once 'vendor\autoload.php';
 
 use touiteur\classes\ConnectionFactory;
 
-ConnectionFactory::setConfig('config.ini');
+ConnectionFactory::setConfig();
 
 $pdo = ConnectionFactory::makeConnection();
 

@@ -1,16 +1,9 @@
 <?php
 declare(strict_types=1);
 
-namespace src\classes;
+namespace touiteur\classes;
 
-use Action\TouitesAction;
-use \src\classes\ConnectionFactory;
-
-require_once 'vendor/autoload.php';
-
-spl_autoload_register(function ($class_name) {
-    include $class_name . '.php';
-});
+use touiteur\classes\Action\TouitesAction;
 
 class Dispatcher
 {
