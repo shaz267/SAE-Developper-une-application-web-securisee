@@ -1,5 +1,8 @@
 <?php
 
+namespace src\classes;
+
+use DefaultAction;
 use SAE\src\classes\TouitesAction;
 
 require_once 'vendor/autoload.php';
@@ -18,9 +21,10 @@ class Dispatcher
         $this->action = $_GET['action'];
     }
 
-    public function run(){
+    public function run()
+    {
 
-        switch ($this->action){
+        switch ($this->action) {
             case 'TouitesAction':
                 $html = $this->executeAction(new TouitesAction());
                 $this->renderPage($html);
@@ -32,7 +36,8 @@ class Dispatcher
         }
     }
 
-    private function renderPage(string $html){
+    private function renderPage(string $html)
+    {
         echo <<<HTML
             <html lang="fr">
 
