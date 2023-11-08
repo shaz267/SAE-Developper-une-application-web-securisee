@@ -20,7 +20,7 @@ class TouitesAction extends Action
         $pdo = ConnectionFactory::makeConnection();
 
         //On récupère les touites
-        $sql = "SELECT u.nom, u.prenom, t.contenu, t.date_pub FROM touite t
+        $sql = "SELECT t.id_touite,u.nom, u.prenom, t.contenu, t.date_pub FROM touite t
                 INNER JOIN utilisateur u ON t.id_user = u.id_user
                 ORDER BY t.date_pub DESC";
         $stmt = $pdo->prepare($sql);
@@ -28,7 +28,8 @@ class TouitesAction extends Action
         $touites = $stmt->fetchAll();
         $html = $this->renderTouites($touites);
 
-        return <<<HTML
+        //On retourne le code HTML
+        return  <<<HTML
                  <div class="touites" id="index">
                  <div class="liens">
                      <ul id="choix">
@@ -56,6 +57,7 @@ class TouitesAction extends Action
     {
 
         $html = "";
+        //On parcourt les touites
         foreach ($touites as $touite) {
 
             //On convertit le contenu en UTF-8
@@ -70,7 +72,7 @@ class TouitesAction extends Action
             $touite['date_pub'] = htmlspecialchars($touite['date_pub']);
             $touite['nom'] = htmlspecialchars($touite['nom']);
 
-            $html .= <<<HTML
+            $html = <<<HTML
             <div class="touite">
                 <h3>{$touite['nom']} {$touite['prenom']}</h3>
                 <br>
@@ -82,6 +84,7 @@ class TouitesAction extends Action
             </div>
             HTML;
         }
+        //On retourne le code HTML
         return $html;
     }
 }
