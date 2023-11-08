@@ -47,7 +47,7 @@ class TouiteDetailAction extends Action
         $touite['contenu'] = utf8_encode($touite['contenu']);
 
         return <<<HTML
-                    <div class="touite">
+                    <div class="touite" id="Detail">
                         <a href="?action=TouitesPersonneAction&id={$touite['id_user']}"><h3>{$touite['nom']} {$touite['prenom']}</h3></a>
                         <br>
                         <p>{$touite['contenu']}</p>

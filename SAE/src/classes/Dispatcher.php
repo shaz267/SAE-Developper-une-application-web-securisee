@@ -64,12 +64,12 @@ class Dispatcher
                     <div class='container'>
                         <div class='logo'>
                             <a href="index.php">
-                                <img src="img/logo.png" alt="Le logo principal"/>
+                                <img class="imageIndex" src="img/logo.png" alt="Le logo principal"/>
                             </a>
                         </div>
                         <div class='accueil'><h1>ACCUEIL</h1></div>
                         <div class="loupe">
-                            <img src="img/loupe.png" alt="Recherche"/>
+                            <img class="imageIndex" src="img/loupe.png" alt="Recherche"/>
                         </div>
                         <div class="recherche">
                             <label>
