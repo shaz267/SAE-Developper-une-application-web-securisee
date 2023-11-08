@@ -5,6 +5,7 @@ namespace touiteur\classes;
 
 use touiteur\classes\Action\TouiteDetailAction;
 use touiteur\classes\Action\TouitesAction;
+use touiteur\classes\Action\TouitesPersonneAction;
 
 class Dispatcher
 {
@@ -29,6 +30,10 @@ class Dispatcher
             case 'TouiteDetailAction':
                 $tDA = new TouiteDetailAction();
                 $html = $tDA->execute();
+                break;
+            case 'TouitesPersonneAction' :
+                $tPA = new TouitesPersonneAction();
+                $html = $tPA->execute();
                 break;
             default:
 

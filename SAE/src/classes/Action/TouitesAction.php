@@ -66,15 +66,9 @@ class TouitesAction extends Action
             //On réduit le contenu pour l'afficher en version courte
             $touite['contenu'] = substr($touite['contenu'], 0, 40) . ' ...';
 
-
-            //On convertit les caractères spéciaux en entités HTML
-            $touite['contenu'] = htmlspecialchars($touite['contenu']);
-            $touite['date_pub'] = htmlspecialchars($touite['date_pub']);
-            $touite['nom'] = htmlspecialchars($touite['nom']);
-
-            $html = <<<HTML
+            $html .= <<<HTML
             <div class="touite">
-                <h3>{$touite['nom']} {$touite['prenom']}</h3>
+                <a href="?action=TouitesPersonneAction"><h3>{$touite['nom']} {$touite['prenom']}</h3></a>
                 <br>
                 <p>{$touite['contenu']}</p>
                 <br>
