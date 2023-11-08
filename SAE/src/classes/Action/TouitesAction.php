@@ -67,14 +67,13 @@ class TouitesAction extends Action
             $touite['contenu'] = substr($touite['contenu'], 0, 40) . ' ...';
 
             $html .= <<<HTML
-            <div class="touite">
+            <div class="touite" onclick="location.href='?action=TouiteDetailAction&touite_id={$touite['id_touite']}'">
                 <a href="?action=TouitesPersonneAction"><h3>{$touite['nom']} {$touite['prenom']}</h3></a>
                 <br>
                 <p>{$touite['contenu']}</p>
                 <br>
                 <p>Date du post : {$touite['date_pub']}</p>
                 <br>
-                <a href="?action=TouiteDetailAction&touite_id={$touite['id_touite']}">Voir plus</a>
             </div>
             HTML;
         }
