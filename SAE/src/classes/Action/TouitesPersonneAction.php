@@ -37,7 +37,7 @@ class TouitesPersonneAction extends Action
                      <ul id="choix">
                          <li><a href="?action=TouitesAction">Accueil</a></li>
                          <li><a href="?action=Connexion">Connexion</a></li>
-                         <li><a href="?action=Inscription">Inscription</a></li>
+                         <li><a href="?action=InscriptionAction">Inscription</a></li>
                      </ul>
                  </div>
                  <div class="deffilementTouite">

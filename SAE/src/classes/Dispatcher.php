@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace touiteur\classes;
 
+use touiteur\classes\Action\InscriptionAction;
 use touiteur\classes\Action\TouiteDetailAction;
 use touiteur\classes\Action\TouitesAction;
 use touiteur\classes\Action\TouitesPersonneAction;
@@ -34,6 +35,10 @@ class Dispatcher
             case 'TouitesPersonneAction' :
                 $tPA = new TouitesPersonneAction();
                 $html = $tPA->execute();
+                break;
+            case 'InscriptionAction' :
+                $iA = new InscriptionAction();
+                $html = $iA->execute();
                 break;
             default:
 
