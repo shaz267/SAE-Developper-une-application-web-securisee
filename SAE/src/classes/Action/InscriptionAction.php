@@ -27,7 +27,7 @@ class InscriptionAction extends Action {
                  <form id="inscription" method="POST" action="?action=InscriptionAction">
                  <label>Votre Nom : </label><input type="text" name="nom"><br>
                  <label>Votre Prénom : </label><input type="text" name="prenom"><br>
-                 <label>Votre e-mail : </label><input type="text" name="email"><br>
+                 <label>Votre e-mail : </label><input type="email" name="email"><br>
                  <label>Votre mot de passe : </label><input type="password" name="mdp"><br>
                  <input type="submit" name="valider" class="button" value="Valider"/>
                  </form>
