@@ -18,86 +18,10 @@ class AuthentificationAction extends Action
      */
     public function execute(): string
     {
-        //On se connecte à la base de données
-        $pdo = ConnectionFactory::makeConnection();
-
-        $html = $this->renderAuthentification();
-
-        //On retourne le code HTML
-        return  <<<HTML
-                 <div class="touites" id="index">
-                 <div class="liens">
-                     <ul id="choix">
-                         <li><a href="?action=TouitesAction">Accueil</a></li>
-                         <li id="connexion"><a href="?action=AuthentificationAction">Connexion</a></li>
-                         <li id ="inscription"><a href="?action=InscriptionAction">Inscription</a></liid>
-                     </ul>
-                 </div>
-                 <div class="deffilementTouite">
-                     
-                        $html
-                        
-                 </div>
-                 </div>
-                 HTML;
-
-
-    }
-
-    /**
-     * fonction qui permet de mettre l'user en session si l'authentification est réussie
-     * @param string $email
-     * @param string $mdp
-     * @return void
-     * @throws AuthException
-     */
-    public static function authenticate(string $email, string $mdp) : void {
-        // Connection à la base et récupération du mot de passe haché de l'utilisateur
-        $bdd = ConnectionFactory::makeConnection();
-        $query = $bdd->prepare('SELECT mdp FROM utilisateur WHERE email = ?');
-        $query->bindParam(1,$email);
-        $query->execute();
-
-        // Si l'email n'est pas rattaché à aucun mot de passe, l'email est incorrecte ou le compte n'existe pas
-        if($query->rowCount() == 0){
-            throw new AuthException('E-mail incorrect');
-        }
-
-        $passwd = $query->fetch(PDO::FETCH_ASSOC);
-
-        // Vérification de la bonne correspondance du mot de passe sinon on throw AuthException
-        if (password_verify($mdp, $passwd['mdp'])) {
-            AuthentificationAction::loadProfile($email);
-        } else {
-            throw new AuthException("Mot de passe saisi incorrect");
-        }
-    }
-
-    /**
-     * Fonction qui permet de charger le profil de l'utilisateur en session
-     * @param string $email
-     * @return void
-     */
-    private static function loadProfile(string $email) : void {
-
-        // On se connecte à la base et on sélectionne le nom, prenom et droits de l'email donné
-        $bdd = ConnectionFactory::makeConnection();
-        $query = $bdd->prepare("SELECT nom,prenom FROM UTILISATEUR WHERE email = ?");
-        $query->bindParam(1, $email);
-        $query->execute();
-        $info = $query->fetch(PDO::FETCH_ASSOC);
-
-        // On crée le nouvel objet User qui sera utilisé le temps de la session
-        $user = new User($info['nom'], $info['prenom'], $email);
-        $user = serialize($user);
-        $_SESSION['user'] = $user;
-    }
-
-    private function renderAuthentification() : string {
 
         if ($_SERVER['REQUEST_METHOD'] === 'GET') {
             return <<<END
-                <h1>Bienvenue sur Touiteur</h1>
+                <h1>Bienvenue de nouveau ! 👋</h1>
                 <form class="formulaireAuth" method='post' action='?action=AuthentificationAction'>
                 <label>Email : </label>
                 <input type='text' name='email' placeholder="ex : OlivPoutre@gmail.com">
@@ -142,6 +66,57 @@ class AuthentificationAction extends Action
                 END;
             }
         }
+
+
+    }
+
+    /**
+     * fonction qui permet de mettre l'user en session si l'authentification est réussie
+     * @param string $email
+     * @param string $mdp
+     * @return void
+     * @throws AuthException
+     */
+    public static function authenticate(string $email, string $mdp) : void {
+        // Connection à la base et récupération du mot de passe haché de l'utilisateur
+        $bdd = ConnectionFactory::makeConnection();
+        $query = $bdd->prepare('SELECT mdp FROM utilisateur WHERE email = ?');
+        $query->bindParam(1,$email);
+        $query->execute();
+
+        // Si l'email n'est pas rattaché à aucun mot de passe, l'email est incorrecte ou le compte n'existe pas
+        if($query->rowCount() == 0){
+            throw new AuthException('E-mail incorrect');
+        }
+
+        $passwd = $query->fetch(PDO::FETCH_ASSOC);
+
+        // Vérification de la bonne correspondance du mot de passe sinon on throw AuthException
+        if (password_verify($mdp, $passwd['mdp'])) {
+            AuthentificationAction::loadProfile($email);
+        } else {
+            throw new AuthException("Mot de passe saisi incorrect");
+        }
+    }
+
+    /**
+     * Fonction qui permet de charger le profil de l'utilisateur en session
+     * @param string $email
+     * @return void
+     */
+    private static function loadProfile(string $email) : void {
+
+        // On se connecte à la base et on sélectionne le nom, prenom et droits de l'email donné
+        $bdd = ConnectionFactory::makeConnection();
+        $query = $bdd->prepare("SELECT nom,prenom, id_user FROM UTILISATEUR WHERE email = ?");
+        $query->bindParam(1, $email);
+        $query->execute();
+        $info = $query->fetch(PDO::FETCH_ASSOC);
+
+        // On crée le nouvel objet User qui sera utilisé le temps de la session
+        $user = new User($info['nom'], $info['prenom'], $email, $info['id_user']);
+        $user = serialize($user);
+        $_SESSION['user'] = $user;
     }
 
 }

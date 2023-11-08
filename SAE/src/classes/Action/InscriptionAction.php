@@ -62,22 +62,7 @@ class InscriptionAction extends Action {
         elseif($_SERVER['REQUEST_METHOD'] === 'GET'){
             //afficher le mur
         }
-        return  <<<HTML
-                 <div class="touites" id="index">
-                 <div class="liens">
-                     <ul id="choix">
-                         <li><a href="?action=TouitesAction">Accueil</a></li>
-                         <li id="connexion"><a href="?action=AuthentificationAction">Connexion</a></li>
-                         <li id="inscription"><a href="?action=InscriptionAction">Inscription</a></li>
-                     </ul>
-                 </div>
-                 <div class="deffilementTouite">
-                     
-                        $html
-                     
-                 </div>
-                 </div>
-                 HTML;
+        return $html;
     }
 
     public static function register(){

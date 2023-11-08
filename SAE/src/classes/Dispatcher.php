@@ -6,6 +6,7 @@ namespace touiteur\classes;
 use touiteur\classes\Action\AuthentificationAction;
 use touiteur\classes\Action\InscriptionAction;
 use touiteur\classes\Action\MurAction;
+use touiteur\classes\Action\PublierAction;
 use touiteur\classes\Action\TouiteDetailAction;
 use touiteur\classes\Action\TouitesAction;
 use touiteur\classes\Action\TouitesPersonneAction;
@@ -28,32 +29,94 @@ class Dispatcher
 
     public function run()
     {
+        //Si l'utilisateur est connecté
+        if (isset($_SESSION['user'])){
 
-        switch ($this->action) {
-            case 'TouiteDetailAction':
-                $tDA = new TouiteDetailAction();
-                $html = $tDA->execute();
-                break;
-            case 'TouitesPersonneAction' :
-                $tPA = new TouitesPersonneAction();
-                $html = $tPA->execute();
-                break;
-            case 'InscriptionAction' :
-                $iA = new InscriptionAction();
-                $html = $iA->execute();
-                break;
-            case 'AuthentificationAction' :
-                $aA = new AuthentificationAction();
-                $html = $aA->execute();
-                break;
-            case 'MurAction' :
-                $mA = new MurAction();
-                $html = $mA->execute();
-                break;
-            default:
+            switch ($this->action) {
+                case 'TouiteDetailAction':
+                    $tDA = new TouiteDetailAction();
+                    $html = $tDA->execute();
+                    break;
+                case 'TouitesPersonneAction' :
+                    $tPA = new TouitesPersonneAction();
+                    $html = $tPA->execute();
+                    break;
+                case 'logout' :
+                    session_destroy();
+                    header('Location: index.php');
+                    break;
+                case 'PublierAction' :
+                    $pA = new PublierAction();
+                    $html = $pA->execute();
+                    break;
+                default:
+                    $mA = new MurAction();
+                    $html = $mA->execute();
+                    break;
 
-                $tA = new TouitesAction();
-                $html = $tA->execute();
+            }
+
+            $html = <<<HTML
+                 <div class="touites" id="index">
+                 <div class="liens">
+                     <ul id="choix">
+                         <li><a href="?action=TouitesAction">Accueil</a></li>
+                         <li id="publier"><a href="?action=PublierAction">Publier</a></li>
+                         <li id="deconnexion"><a href="?action=logout">Déconnexion</a></li>
+                     </ul>
+                 </div>
+                 <div class="deffilementTouite">
+                 
+                 
+                        $html
+                     
+                 </div>
+                 </div>
+                 HTML;
+        }
+        else{
+
+            switch ($this->action) {
+                case 'TouiteDetailAction':
+                    $tDA = new TouiteDetailAction();
+                    $html = $tDA->execute();
+                    break;
+                case 'TouitesPersonneAction' :
+                    $tPA = new TouitesPersonneAction();
+                    $html = $tPA->execute();
+                    break;
+                case 'InscriptionAction' :
+                    $iA = new InscriptionAction();
+                    $html = $iA->execute();
+                    break;
+                case 'AuthentificationAction' :
+                    $aA = new AuthentificationAction();
+                    $html = $aA->execute();
+                    break;
+                default:
+
+                    $tA = new TouitesAction();
+                    $html = $tA->execute();
+                    break;
+            }
+
+            $html = <<<HTML
+                 <div class="touites" id="index">
+                 <div class="liens">
+                     <ul id="choix">
+                         <li><a href="?action=TouitesAction">Accueil</a></li>
+                         <li id="connexion"><a href="?action=AuthentificationAction">Connexion</a></li>
+                         <li id="inscription"><a href="?action=InscriptionAction">Inscription</a></li>
+                     </ul>
+                 </div>
+                 <div class="deffilementTouite">
+                 
+                 
+                        $html
+                     
+                 </div>
+                 </div>
+                 HTML;
 
         }
         $this->renderPage($html);

@@ -19,23 +19,7 @@ class TouiteDetailAction extends Action
         $stmt = $pdo->prepare($sql);
         $stmt->execute();
         $touites = $stmt->fetch();
-        $html = $this->renderDetailTouites($touites);
-
-        return <<<HTML
-                <div class="touites" id="index">
-                 <div class="liens">
-                     <ul id="choix">
-                         <li><a href="?action=TouitesAction">Accueil</a></li>
-                         <li id="connexion"><a href="?action=AuthentificationAction">Connexion</a></li>
-                         <li id="inscription"><a href="?action=InscriptionAction">Inscription</a></li>
-                     </ul>
-                 </div>
-                <div class="deffilementTouite">
-                    
-                       $html
-                </div>
-                </div>
-        HTML;
+        return $this->renderDetailTouites($touites);
 
 
     }
