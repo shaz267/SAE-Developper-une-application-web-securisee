@@ -22,15 +22,20 @@ class InscriptionAction extends Action {
         $stmt->execute();
         $touites = $stmt->fetchAll();
         $html = $this->renderTouites($touites);*/
-
+        $_POST['email'] = '';
         $html = <<<HTML
-                 <form id="inscription" method="POST" action="?action=InscriptionAction">
+                 <h1>Bienvenue sur Touiteur</h1>
+                 <form class="formulaire" method="POST" action="?action=InscriptionAction">
                  <label>Votre Nom : </label><input type="text" name="nom"><br>
                  <label>Votre Prénom : </label><input type="text" name="prenom"><br>
                  <label>Votre e-mail : </label><input type="email" name="email"><br>
                  <label>Votre mot de passe : </label><input type="password" name="mdp"><br>
                  <input type="submit" name="valider" class="button" value="Valider"/>
+                 <br><br>
                  </form>
+                 <ul id="choix">
+                    <li><a href="?action=AuthentificationAction">Connectez vous ici</a></li>
+                 </ul>
                  HTML;
         $bonmail = true;
         $mmail = htmlspecialchars($_POST['email']);
@@ -62,8 +67,8 @@ class InscriptionAction extends Action {
                  <div class="liens">
                      <ul id="choix">
                          <li><a href="?action=TouitesAction">Accueil</a></li>
-                         <li><a href="?action=AuthentificationAction">Connexion</a></li>
-                         <li><a href="?action=InscriptionAction">Inscription</a></li>
+                         <li id="connexion"><a href="?action=AuthentificationAction">Connexion</a></li>
+                         <li id="inscription"><a href="?action=InscriptionAction">Inscription</a></li>
                      </ul>
                  </div>
                  <div class="deffilementTouite">

@@ -29,8 +29,8 @@ class AuthentificationAction extends Action
                  <div class="liens">
                      <ul id="choix">
                          <li><a href="?action=TouitesAction">Accueil</a></li>
-                         <li><a href="?action=AuthentificationAction">Connexion</a></li>
-                         <li><a href="?action=InscriptionAction">Inscription</a></li>
+                         <li id="connexion"><a href="?action=AuthentificationAction">Connexion</a></li>
+                         <li id ="inscription"><a href="?action=InscriptionAction">Inscription</a></liid>
                      </ul>
                  </div>
                  <div class="deffilementTouite">
@@ -97,12 +97,14 @@ class AuthentificationAction extends Action
 
         if ($_SERVER['REQUEST_METHOD'] === 'GET') {
             return <<<END
-                <form method='post' action='?action=AuthentificationAction'>
                 <h1>Bienvenue sur Touiteur</h1>
+                <form class="formulaire" method='post' action='?action=AuthentificationAction'>
                 <label>Email : </label><input type='text' name='email'>
                 <label>Mot de passe : </label><input type='password' name='mdp'>
                 <button type='submit'>Se connecter</button><br><br>
-                <a href='?action=InscriptionAction'>Inscrivez vous dès maintenant ici</a>
+                <ul id="choix">
+                <li><a href='?action=InscriptionAction'>Inscrivez vous dès maintenant ici</a></li>
+                </ul>
                 </form>
             END;
         }
@@ -124,7 +126,10 @@ class AuthentificationAction extends Action
                 return <<<END
                 <br>{$message}<br>
                 <br><b> Il se pourrait que vous n'avez pas de compte, si vous le souhaitez vous pouvez en créer un en cliquant sur le lien suivant: </b> 
-                <br><a href='?action=InscriptionAction'>Inscription</a></br>
+                <br>
+                <ul id="choix">
+                <li><a href='?action=InscriptionAction'>Inscrivez vous dès maintenant ici</a></li>
+                </ul>
                 END;
             }
         }
