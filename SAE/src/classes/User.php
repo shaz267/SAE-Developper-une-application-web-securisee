@@ -2,29 +2,38 @@
 
 namespace touiteur\classes;
 
+use touiteur\classes\Exceptions\InvalidArgumentException;
+
 class User
 {
 
-    private string $pseudo;
-    private string $nom;
-    private string $email;
-    private string $mdp;
-    protected int $role; //role de l'utilisateur
-
-    private ListUser $abonnements; //liste des abonnements du membre
-    private ListUser $abonnés; //liste des abonnés du membre
-
+    private $nom;
+    private $prenom;
+    private $email;
+    private $mdp;
+    private $droits;
     /**
-     * @param mixed $nom
-     * @param mixed $prenom
+     * @param string $nom
+     * @param string $prenom
      * @param string $email
-     * @param mixed $role
+     * @param int $role
      */
-    public function __construct($nom, $prenom, string $email, $role){
+    public function __construct(string $nom, string $prenom, string $email){
 
         $this->nom = $nom;
         $this->prenom = $prenom;
         $this->email = $email;
-        $this->role = $role;
     }
+
+    //get magic method
+    /**
+     * @throws InvalidArgumentException
+     */
+    public function __get(string $at):string {
+        if (property_exists ($this, $at)) return $this->$at;
+        throw new InvalidArgumentException("$at: invalid property");
+    }
+
+
+
 }

@@ -12,6 +12,10 @@ class AuthentificationAction extends Action
 {
 
 
+    /**
+     * Fonction qui permet d'afficher la page d'authentification
+     * @return string
+     */
     public function execute(): string
     {
         //On se connecte à la base de données
@@ -69,16 +73,22 @@ class AuthentificationAction extends Action
         }
     }
 
+    /**
+     * Fonction qui permet de charger le profil de l'utilisateur en session
+     * @param string $email
+     * @return void
+     */
     private static function loadProfile(string $email) : void {
+
         // On se connecte à la base et on sélectionne le nom, prenom et droits de l'email donné
         $bdd = ConnectionFactory::makeConnection();
-        $query = $bdd->prepare("SELECT nom,prenom,droits FROM UTILISATEUR WHERE email = ?");
-        $query->bindParam('?', $email);
+        $query = $bdd->prepare("SELECT nom,prenom FROM UTILISATEUR WHERE email = ?");
+        $query->bindParam(1, $email);
         $query->execute();
         $info = $query->fetch(PDO::FETCH_ASSOC);
 
         // On crée le nouvel objet User qui sera utilisé le temps de la session
-        $user = new User($info['nom'], $info['prenom'], $email, $info['role']);
+        $user = new User($info['nom'], $info['prenom'], $email);
         $user = serialize($user);
         $_SESSION['user'] = $user;
     }
@@ -104,17 +114,15 @@ class AuthentificationAction extends Action
             try {
                 AuthentificationAction::authenticate($email, $password);
                 $user = unserialize($_SESSION['user']);
-                var_dump($user);
-                var_dump($_SESSION['user']);
                 return <<<END
-                    <h1>Bienvenue {$user->pseudo}</h1>
+                    <h1>Bienvenue {$user->nom} {$user->prenom}</h1>
                     <a href='?action=logout'>Se déconnecter</a>
                 END;
             } catch (AuthException $e) {
 
-                echo $e->getMessage();
+                $message = $e->getMessage();
                 return <<<END
-                <br>Il y a eu un problème lors de la connexion à votre compte.</br><br>
+                <br>{$message}<br>
                 <br><b> Il se pourrait que vous n'avez pas de compte, si vous le souhaitez vous pouvez en créer un en cliquant sur le lien suivant: </b> 
                 <br><a href='?action=InscriptionAction'>Inscription</a></br>
                 END;
