@@ -24,12 +24,12 @@ class InscriptionAction extends Action {
         $html = $this->renderTouites($touites);*/
         $_POST['email'] = '';
         $html = <<<HTML
-                 <h1>Bienvenue sur Touiteur</h1>
-                 <form class="formulaire" method="POST" action="?action=InscriptionAction">
-                 <label>Votre Nom : </label><input type="text" name="nom"><br>
-                 <label>Votre Prénom : </label><input type="text" name="prenom"><br>
-                 <label>Votre e-mail : </label><input type="email" name="email"><br>
-                 <label>Votre mot de passe : </label><input type="password" name="mdp"><br>
+                 <h2>Bienvenue sur Touiteur, vous pouvez vous inscrire ci-dessous :</h2>
+                 <form class="formulaireInsc" method="POST" action="?action=InscriptionAction">
+                 <label>Nom : </label><input type="text" name="nom"><br><br>
+                 <label>Prénom : </label><input type="text" name="prenom"><br><br>
+                 <label>E-mail : </label><input type="email" name="email"><br><br>
+                 <label>Mot de passe : </label><input type="password" name="mdp"><br><br>
                  <input type="submit" name="valider" class="button" value="Valider"/>
                  <br><br>
                  </form>

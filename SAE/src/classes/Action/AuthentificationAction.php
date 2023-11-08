@@ -98,7 +98,7 @@ class AuthentificationAction extends Action
         if ($_SERVER['REQUEST_METHOD'] === 'GET') {
             return <<<END
                 <h1>Bienvenue sur Touiteur</h1>
-                <form class="formulaire" method='post' action='?action=AuthentificationAction'>
+                <form class="formulaireAuth" method='post' action='?action=AuthentificationAction'>
                 <label>Email : </label><input type='text' name='email'>
                 <label>Mot de passe : </label><input type='password' name='mdp'>
                 <button type='submit'>Se connecter</button><br><br>
