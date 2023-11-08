@@ -43,6 +43,9 @@ class TouiteDetailAction extends Action
     private function renderDetailTouites($touite): string
     {
 
+        //On convertit le contenu en UTF-8
+        $touite['contenu'] = utf8_encode($touite['contenu']);
+
         return <<<HTML
                     <div class="touite">
                         <h3>{$touite['nom']} {$touite['prenom']}</h3>

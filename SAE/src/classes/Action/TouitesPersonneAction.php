@@ -21,8 +21,9 @@ class TouitesPersonneAction extends Action
         $pdo = ConnectionFactory::makeConnection();
 
         //On récupère les touites
-        $sql = "SELECT u.nom, u.prenom, t.contenu, t.date_pub FROM touite t
+        $sql = "SELECT  t.id_touite, t.id_user,u.nom, u.prenom, t.contenu, t.date_pub FROM touite t
                 INNER JOIN utilisateur u ON t.id_user = u.id_user
+                WHERE t.id_user = {$_GET["id"]}
                 ORDER BY t.date_pub DESC";
         $stmt = $pdo->prepare($sql);
         $stmt->execute();
@@ -67,19 +68,15 @@ class TouitesPersonneAction extends Action
             //On réduit le contenu pour l'afficher en version courte
             $touite['contenu'] = substr($touite['contenu'], 0, 40) . ' ...';
 
-
-            //On convertit les caractères spéciaux en entités HTML
-            $touite['contenu'] = htmlspecialchars($touite['contenu']);
-            $touite['date_pub'] = htmlspecialchars($touite['date_pub']);
-            $touite['nom'] = htmlspecialchars($touite['nom']);
-
             $html .= <<<HTML
             <div class="touite">
-                <h3>{$touite['nom']} {$touite['prenom']}</h3>
+                <a href="?action=TouitesPersonneAction&id={$touite['id_user']}"><h3>{$touite['nom']} {$touite['prenom']}</h3></a>
                 <br>
                 <p>{$touite['contenu']}</p>
-                <br> <br> <br> <br> <br> 
+                <br>
                 <p>Date du post : {$touite['date_pub']}</p>
+                <br>
+                <a href="?action=TouiteDetailAction&touite_id={$touite['id_touite']}">Voir plus</a>
             </div>
             HTML;
         }
