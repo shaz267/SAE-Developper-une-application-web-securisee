@@ -26,8 +26,8 @@ class TouiteDetailAction extends Action
                  <div class="liens">
                      <ul id="choix">
                          <li><a href="?action=TouitesAction">Accueil</a></li>
-                         <li><a href="?action=AuthentificationAction">Connexion</a></li>
-                         <li><a href="?action=InscriptionAction">Inscription</a></li>
+                         <li id="connexion"><a href="?action=AuthentificationAction">Connexion</a></li>
+                         <li id="inscription"><a href="?action=InscriptionAction">Inscription</a></li>
                      </ul>
                  </div>
                 <div class="deffilementTouite">
@@ -48,11 +48,12 @@ class TouiteDetailAction extends Action
 
         return <<<HTML
                     <div class="touite" id="Detail">
-                        <a href="?action=TouitesPersonneAction&id={$touite['id_user']}"><h3>{$touite['nom']} {$touite['prenom']}</h3></a>
+                        <a class="lienPersonne" href="?action=TouitesPersonneAction&id={$touite['id_user']}"><h3>{$touite['nom']} {$touite['prenom']}</h3></a>
                         <br>
                         <p>{$touite['contenu']}</p>
                         <br>
                         <p>Date du post : {$touite['date_pub']}</p>
+                        <br>
                         <img id="like" src="img/like.png" alt="Boutton de like">
                         <img id="dislike" src="img/dislike.png" alt="Boutton de dislike">
                     </div>

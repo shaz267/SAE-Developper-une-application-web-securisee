@@ -67,30 +67,43 @@ body{
     font-family: Arial, Helvetica, sans-serif;
 }
 
-#choix{
+.lienPersonne {
+    color: black;
+}
+
+@font-face {
+    font-family: "snoopy_reg-webfont";
+    src: url("../../Police/snoopy_reg-webfont.otf");
+}
+
+#choix {
+    position: sticky;
+    top: 0;
     list-style-type: none;
     margin: 0;
     padding: 5%;
     text-align: center;
+    background-color: #fff; /* Add a background color to make the navigation bar distinct */
+    font-family: "snoopy_reg-webfont", sans-serif;
+    font-size: 30px;
 }
 
-#choix li{
+#choix li {
     padding-bottom: 5%;
     font-weight: bold;
 }
 
-#choix a{
+#choix a {
     position: relative;
     text-decoration: none;
     color: black;
-
 }
 
 #choix a::before {
     content: '';
     position: absolute;
     width: 100%;
-    height: 2px;
+    height: 3px;
     border-radius: 4px;
     background-color: lightcoral;
     bottom: 0;
@@ -103,6 +116,20 @@ body{
 #choix a:hover::before {
     transform-origin: left;
     transform: scaleX(1);
+}
+
+#choix #connexion, #choix #inscription {
+    position: absolute;
+    top: 700px;
+    left: 0;
+    width: 100%;
+}
+
+#choix #inscription{*
+    position: absolute;
+    top: 750px;
+    left: 0;
+    width: 100%;
 }
 
 .deffilementTouite {
@@ -122,8 +149,8 @@ body{
 }
 
 #like{
-    width: 20%;
-    height: 25%;
+    width: 10%;
+    height: 20%;
     border-radius: 50%;
 }
 
@@ -141,8 +168,8 @@ body{
 }
 
 #dislike{
-    width: 20%;
-    height: 25%;
+    width: 10%;
+    height: 20%;
     border-radius: 50%;
 }
 
