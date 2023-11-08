@@ -5,6 +5,7 @@ namespace touiteur\classes;
 
 use touiteur\classes\Action\AuthentificationAction;
 use touiteur\classes\Action\InscriptionAction;
+use touiteur\classes\Action\MurAction;
 use touiteur\classes\Action\TouiteDetailAction;
 use touiteur\classes\Action\TouitesAction;
 use touiteur\classes\Action\TouitesPersonneAction;
@@ -44,6 +45,10 @@ class Dispatcher
             case 'AuthentificationAction' :
                 $aA = new AuthentificationAction();
                 $html = $aA->execute();
+                break;
+            case 'MurAction' :
+                $mA = new MurAction();
+                $html = $mA->execute();
                 break;
             default:
 

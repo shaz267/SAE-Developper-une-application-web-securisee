@@ -116,6 +116,10 @@ class AuthentificationAction extends Action
             try {
                 AuthentificationAction::authenticate($email, $password);
                 $user = unserialize($_SESSION['user']);
+
+                //On veut changer la page pour afficher le mur de l'utilisateur
+                header("Location: ?action=MurAction");
+
                 return <<<END
                     <h1>Bienvenue {$user->nom} {$user->prenom}</h1>
                     <a href='?action=logout'>Se déconnecter</a>
