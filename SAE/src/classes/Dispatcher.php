@@ -37,7 +37,16 @@ class Dispatcher
                 break;
             default:
 
-
+                $html = <<<HTML
+                 <div class="touites" id="index">
+                 <div class="liens">
+                     <ul id="choix">
+                         <li><a href="?action=TouitesAction">Accueil</a></li>
+                         <li><a href="?action=Connexion">Connexion</a></li>
+                         <li><a href="?action=Inscription">Inscription</a></li>
+                     </ul>
+                 </div>
+                HTML;
 
                 $this->renderPage($html);
 
@@ -50,7 +59,7 @@ class Dispatcher
             <html lang="fr">
                 <head>
                     <title>Page d'accueil</title>
-                    <meta charset="utf-8">
+                    <meta charset=utf-8>
                     <link rel="shortcut icon" href="img/twitter-logo.png"/>
                 </head>
                 <body>

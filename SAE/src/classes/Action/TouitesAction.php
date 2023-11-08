@@ -14,7 +14,9 @@ class TouitesAction extends Action
 
         $pdo = ConnectionFactory::makeConnection();
 
-        $sql = "SELECT * FROM touite";
+        $sql = "SELECT u.nom, u.prenom, t.contenu, t.date_pub FROM touite t
+                INNER JOIN utilisateur u ON t.id_user = u.id_user
+                ORDER BY t.date_pub DESC";
         $stmt = $pdo->prepare($sql);
         $stmt->execute();
         $touites = $stmt->fetchAll();
@@ -45,7 +47,7 @@ class TouitesAction extends Action
         foreach ($touites as $touite) {
             $html .= <<<HTML
             <div class="touite">
-                <h1>{$touite['id_user']}</h1>
+                <h3>{$touite['nom']} {$touite['prenom']}</h3>
                 {$touite['contenu']}
                 <p>{$touite['date_pub']}</p>
             </div>
