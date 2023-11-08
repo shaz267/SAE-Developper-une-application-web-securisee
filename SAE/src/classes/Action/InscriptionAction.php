@@ -38,7 +38,7 @@ class InscriptionAction extends Action {
                  HTML;
         $bonmail = true;
 
-        if(isset($_SERVER['email'])){
+        if(isset($_POST['email'])){
             $mmail = htmlspecialchars($_POST['email']);
             $db = ConnectionFactory::makeConnection();
             $query = 'SELECT email FROM Utilisateur WHERE email = ?';
