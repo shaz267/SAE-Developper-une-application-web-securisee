@@ -99,13 +99,18 @@ class AuthentificationAction extends Action
             return <<<END
                 <h1>Bienvenue sur Touiteur</h1>
                 <form class="formulaireAuth" method='post' action='?action=AuthentificationAction'>
-                <label>Email : </label><input type='text' name='email'>
-                <label>Mot de passe : </label><input type='password' name='mdp'>
-                <button type='submit'>Se connecter</button><br><br>
+                <label for="mail">Email : </label>
+                <input id="mail" type='text' placeholder="ex : OlivPoutre@gmail.com">
+                <br><br>
+                <label for="mdp">Mot de passe : </label>
+                <input id="mdp" type='password'>
+                <br><br>
+                <input type="submit" name="valider" class="button" value="Se connecter"/>
+                <br><br>
+                </form>
                 <ul id="choix">
                 <li><a href='?action=InscriptionAction'>Inscrivez vous dès maintenant ici</a></li>
-                </ul>
-                </form>
+                </ul>   
             END;
         }
         else {

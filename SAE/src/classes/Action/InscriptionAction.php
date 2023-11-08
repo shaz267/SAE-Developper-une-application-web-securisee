@@ -4,7 +4,6 @@ namespace touiteur\classes\Action;
 
 use PDO;
 use touiteur\classes\ConnectionFactory;
-use touiteur\classes\Exceptions\NoMailException;
 
 class InscriptionAction extends Action {
 
@@ -15,12 +14,20 @@ class InscriptionAction extends Action {
         //: Afficher la page d'inscription
 
         $html = <<<HTML
-                 <h2>Bienvenue sur Touiteur, vous pouvez vous inscrire ci-dessous :</h2>
+                 <h1>Bienvenue sur Touiteur</h1>
                  <form class="formulaireInsc" method="POST" action="?action=InscriptionAction">
-                 <label>Nom : </label><input type="text" name="nom"><br><br>
-                 <label>Prénom : </label><input type="text" name="prenom"><br><br>
-                 <label>E-mail : </label><input type="email" name="email"><br><br>
-                 <label>Mot de passe : </label><input type="password" name="mdp"><br><br>
+                 <label for="nom">Nom : </label>
+                 <input id="nom" type="text" placeholder="ex : Poutre">
+                 <br><br>
+                 <label for="prenom">Prénom : </label>
+                 <input id="prenom" type="text" placeholder="ex : Olivier">
+                 <br><br>
+                 <label for="mail">E-mail : </label>
+                 <input id="mail" type="email" name="email" placeholder="ex : OlivPoutre@gmail.com">
+                 <br><br>
+                 <label for="mdp">Mot de passe : </label>
+                 <input class="mdp" type="password">
+                 <br><br>
                  <input type="submit" name="valider" class="button" value="Valider"/>
                  <br><br>
                  </form>
