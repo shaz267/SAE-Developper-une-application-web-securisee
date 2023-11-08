@@ -13,7 +13,7 @@ class TouiteDetailAction extends Action
 
         $pdo = ConnectionFactory::makeConnection();
 
-        $sql = "SELECT u.nom, u.prenom, t.contenu, t.date_pub FROM touite t
+        $sql = "SELECT t.id_user, u.nom, u.prenom, t.contenu, t.date_pub FROM touite t
                 INNER JOIN utilisateur u ON t.id_user = u.id_user
                 where t.id_touite = $touiteId";
         $stmt = $pdo->prepare($sql);
@@ -48,7 +48,7 @@ class TouiteDetailAction extends Action
 
         return <<<HTML
                     <div class="touite">
-                        <h3>{$touite['nom']} {$touite['prenom']}</h3>
+                        <a href="?action=TouitesPersonneAction&id={$touite['id_user']}"><h3>{$touite['nom']} {$touite['prenom']}</h3></a>
                         <br>
                         <p>{$touite['contenu']}</p>
                         <br>
