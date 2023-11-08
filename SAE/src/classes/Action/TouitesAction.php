@@ -34,7 +34,7 @@ class TouitesAction extends Action
                  <div class="liens">
                      <ul id="choix">
                          <li><a href="?action=TouitesAction">Accueil</a></li>
-                         <li><a href="?action=Connexion">Connexion</a></li>
+                         <li><a href="?action=AuthentificationAction">Connexion</a></li>
                          <li><a href="?action=InscriptionAction">Inscription</a></li>
                      </ul>
                  </div>

@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace touiteur\classes;
 
+use touiteur\classes\Action\AuthentificationAction;
 use touiteur\classes\Action\InscriptionAction;
 use touiteur\classes\Action\TouiteDetailAction;
 use touiteur\classes\Action\TouitesAction;
@@ -39,6 +40,10 @@ class Dispatcher
             case 'InscriptionAction' :
                 $iA = new InscriptionAction();
                 $html = $iA->execute();
+                break;
+            case 'AuthentificationAction' :
+                $aA = new AuthentificationAction();
+                $html = $aA->execute();
                 break;
             default:
 
