@@ -21,7 +21,7 @@ class Dispatcher
             $this->action = "";
 
         //On filtre l'action pour éviter les injections
-        $this->action = filter_var($this->action, FILTER_SANITIZE_STRING);
+        $this->action = filter_var($this->action);
     }
 
     public function run()
