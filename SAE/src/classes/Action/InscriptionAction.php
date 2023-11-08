@@ -32,8 +32,22 @@ class InscriptionAction extends Action {
                  <input type="submit" name="valider" class="button" value="Valider"/>
                  </form>
                  HTML;
+        $bonmail = true;
+        $mmail = htmlspecialchars($_POST['email']);
+        if($mmail){
+            $db = ConnectionFactory::makeConnection();
+            $query = 'SELECT email FROM Utilisateur WHERE email = ?';
+            $st = $db->prepare($query);
+            $st->bindParam(1, $mmail, PDO::PARAM_STR);
+            $st->execute();
+            $result = $st->fetch(PDO::FETCH_ASSOC);
+            if($result){
+                $html .= '<p>Cet email est déjà utilisé</p>';
+                $bonmail = false;
+            }
 
-        if($_SERVER['REQUEST_METHOD'] === 'POST' && self::checkPasswordStrength($_POST['mdp'], 8)){
+        }
+        if($_SERVER['REQUEST_METHOD'] === 'POST' && self::checkPasswordStrength($_POST['mdp'], 8) && $bonmail){
             $this->register();
             $html .= '<p>Vous êtes inscrit avec succès</p>';
         }
