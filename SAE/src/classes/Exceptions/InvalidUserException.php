@@ -1,6 +1,6 @@
 <?php
 
-namespace touiteur\classes\Action;
+namespace touiteur\classes\Exceptions;
 
 class InvalidUserException extends \Exception
 {
