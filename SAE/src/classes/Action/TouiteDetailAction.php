@@ -15,10 +15,10 @@ class TouiteDetailAction extends Action
 
         $sql = "SELECT u.nom, u.prenom, t.contenu, t.date_pub FROM touite t
                 INNER JOIN utilisateur u ON t.id_user = u.id_user
-                where t.id_touite = {$touiteId}";
+                where t.id_touite = $touiteId";
         $stmt = $pdo->prepare($sql);
         $stmt->execute();
-        $touites = $stmt->fetchAll();
+        $touites = $stmt->fetch();
         $html = $this->renderDetailTouites($touites);
 
         return <<<HTML
@@ -40,15 +40,16 @@ class TouiteDetailAction extends Action
 
     }
 
-    private function renderDetailTouites(array $touite): string
+    private function renderDetailTouites($touite): string
     {
 
         return <<<HTML
                     <div class="touite">
                         <h3>{$touite['nom']} {$touite['prenom']}</h3>
-                            {$touite['contenu']}
-                        <p>{$touite['date_pub']}</p>
                         <br>
+                        <p>{$touite['contenu']}</p>
+                        <br>
+                        <p>Date du post : {$touite['date_pub']}</p>
                         <img id="like" src="img/like.png" alt="Boutton de like">
                         <img id="dislike" src="img/dislike.png" alt="Boutton de dislike">
                     </div>
