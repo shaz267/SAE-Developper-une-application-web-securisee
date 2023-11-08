@@ -17,40 +17,26 @@ class Dispatcher
             $this->action = $_GET["action"];
         else
             $this->action = "";
+
+        //On filtre l'action pour éviter les injections
+        $this->action = filter_var($this->action, FILTER_SANITIZE_STRING);
     }
 
     public function run()
     {
 
-        $html = "";
-
         switch ($this->action) {
-            case 'TouitesAction':
-                $tA = new TouitesAction();
-                $html = $tA->execute();
-                $this->renderPage($html);
-                break;
             case 'TouiteDetailAction':
                 $tDA = new TouiteDetailAction();
                 $html = $tDA->execute();
-                $this->renderPage($html);
                 break;
             default:
 
-                $html = <<<HTML
-                 <div class="touites" id="index">
-                 <div class="liens">
-                     <ul id="choix">
-                         <li><a href="?action=TouitesAction">Accueil</a></li>
-                         <li><a href="?action=Connexion">Connexion</a></li>
-                         <li><a href="?action=Inscription">Inscription</a></li>
-                     </ul>
-                 </div>
-                HTML;
-
-                $this->renderPage($html);
+                $tA = new TouitesAction();
+                $html = $tA->execute();
 
         }
+        $this->renderPage($html);
     }
 
     private function renderPage(string $html)

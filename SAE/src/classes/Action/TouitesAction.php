@@ -43,12 +43,21 @@ class TouitesAction extends Action
 
     private function renderTouites(array $touites): string
     {
+
         $html = "";
         foreach ($touites as $touite) {
+
+            //On réduit le contenu pour l'afficher en version courte
+            $touite['contenu'] = substr($touite['contenu'], 0, 50) . '...';
+
+
+            $touite['date_pub'] = htmlspecialchars($touite['date_pub']);
+            $touite['nom'] = htmlspecialchars($touite['nom']);
+
             $html .= <<<HTML
             <div class="touite">
                 <h3>{$touite['nom']} {$touite['prenom']}</h3>
-                {$touite['contenu']}
+                <p>{$touite['contenu']}</p>
                 <p>{$touite['date_pub']}</p>
             </div>
             HTML;
