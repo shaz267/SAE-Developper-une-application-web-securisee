@@ -132,13 +132,15 @@ body{
     width: 100%;
 }
 
-.formulaire {
+.formulaireInsc {
     position: relative;
     border-left: grey 1px solid;
     padding-left: 5%;
+    font-family: "Comic Sans MS", cursive, sans-serif;
+
 }
 
-.formulaire::after {
+.formulaireInsc::after {
     content: '';
     position: absolute;
     bottom: 0;
@@ -227,4 +229,35 @@ body{
     display: block;
     width: 150px;
     float: left;
+}
+
+.formulaireInsc input {
+    border-radius: 30px;
+}
+
+.formulaireAuth label {
+    display: block;
+    width: 150px;
+    float: left;
+}
+
+.formulaireAuth input {
+    border-radius: 30px;
+}
+
+.formulaireAuth {
+    position: relative;
+    border-left: grey 1px solid;
+    padding-left: 5%;
+    font-family: "Comic Sans MS", cursive, sans-serif;
+}
+
+.formulaireAuth::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    border-bottom: grey 1px solid;
 }
