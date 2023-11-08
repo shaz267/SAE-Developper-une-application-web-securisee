@@ -32,10 +32,15 @@ class InscriptionAction extends Action {
                  <input type="submit" name="valider" class="button" value="Valider"/>
                  </form>
                  HTML;
-        if($_SERVER['REQUEST_METHOD'] == 'POST'){
+
+        if($_SERVER['REQUEST_METHOD'] === 'POST' && self::checkPasswordStrength($_POST['mdp'], 8)){
             $this->register();
+            $html .= '<p>Vous êtes inscrit avec succès</p>';
         }
-        elseif($_SERVER['REQUEST_METHOD'] == 'GET'){
+        elseif ($_SERVER['REQUEST_METHOD'] === 'POST' && !self::checkPasswordStrength($_POST['mdp'], 8)){
+            $html .= '<p>Le mot de passe doit contenir au moins 8 caractères, une majuscule, une minuscule, un chiffre et un caractère spécial</p>';
+        }
+        elseif($_SERVER['REQUEST_METHOD'] === 'GET'){
             //afficher le mur
         }
         return  <<<HTML
@@ -74,5 +79,18 @@ class InscriptionAction extends Action {
         $st->bindParam(3, $mail, PDO::PARAM_STR);
         $st->bindParam(4, $hash, PDO::PARAM_STR);
         $st->execute();
+    }
+
+    public static function checkPasswordStrength(string $pass, int $minimumLength): bool {
+
+        if (strlen($pass) < $minimumLength) return false;
+        $digit = preg_match("#[\d]#", $pass); // au moins un digit
+        $special = preg_match("#[\W]#", $pass); // au moins un car. spécial
+        $lower = preg_match("#[a-z]#", $pass); // au moins une minuscule
+        $upper = preg_match("#[A-Z]#", $pass); // au moins une majuscule
+
+        //On débug en echo pour voir les erreurs
+        if (!$digit || !$special || !$lower || !$upper)return false;
+        return true;
     }
 }
