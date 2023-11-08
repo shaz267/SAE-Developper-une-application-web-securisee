@@ -4,6 +4,7 @@ namespace touiteur\classes\Action;
 
 use PDO;
 use touiteur\classes\ConnectionFactory;
+use touiteur\classes\Exceptions\NoMailException;
 
 class InscriptionAction extends Action {
 
@@ -13,16 +14,6 @@ class InscriptionAction extends Action {
 
         //: Afficher la page d'inscription
 
-        /*$pdo = ConnectionFactory::makeConnection();
-
-        $sql = "SELECT u.nom, u.prenom, t.contenu, t.date_pub FROM touite t
-                INNER JOIN utilisateur u ON t.id_user = u.id_user
-                ORDER BY t.date_pub DESC";
-        $stmt = $pdo->prepare($sql);
-        $stmt->execute();
-        $touites = $stmt->fetchAll();
-        $html = $this->renderTouites($touites);*/
-        $_POST['email'] = '';
         $html = <<<HTML
                  <h2>Bienvenue sur Touiteur, vous pouvez vous inscrire ci-dessous :</h2>
                  <form class="formulaireInsc" method="POST" action="?action=InscriptionAction">
@@ -38,8 +29,9 @@ class InscriptionAction extends Action {
                  </ul>
                  HTML;
         $bonmail = true;
-        $mmail = htmlspecialchars($_POST['email']);
-        if($mmail){
+
+        if(isset($_SERVER['email'])){
+            $mmail = htmlspecialchars($_POST['email']);
             $db = ConnectionFactory::makeConnection();
             $query = 'SELECT email FROM Utilisateur WHERE email = ?';
             $st = $db->prepare($query);
