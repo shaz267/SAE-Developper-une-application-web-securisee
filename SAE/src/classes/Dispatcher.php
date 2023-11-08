@@ -53,7 +53,7 @@ class Dispatcher
                     <link rel='stylesheet' href='src/css/Index.css'>
                     <div class='container'>
                         <div class='logo'>
-                            <a href="?action=TouitesAction">
+                            <a href="index.php">
                                 <img src="img/logo.png" alt="Le logo principal"/>
                             </a>
                         </div>
