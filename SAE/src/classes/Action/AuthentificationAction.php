@@ -50,8 +50,8 @@ class AuthentificationAction extends Action
     public static function authenticate(string $email, string $mdp) : void {
         // Connection à la base et récupération du mot de passe haché de l'utilisateur
         $bdd = ConnectionFactory::makeConnection();
-        $query = $bdd->prepare('SELECT mdp FROM UTILISATEUR WHERE email = ?');
-        $query->bindParam('?',$email);
+        $query = $bdd->prepare('SELECT mdp FROM utilisateur WHERE email = ?');
+        $query->bindParam(1,$email);
         $query->execute();
 
         // Si l'email n'est pas rattaché à aucun mot de passe, l'email est incorrecte ou le compte n'existe pas
@@ -98,26 +98,21 @@ class AuthentificationAction extends Action
         }
         else {
 
-            //On vérifie que le mot de passe est assez fort
-            if ($this->checkPasswordStrength($_POST['mdp'], 8) === false) {
-                return <<<END
-                <br>Le mot de passe doit contenir au moins 8 caractères dont une majuscule, une minuscule, un chiffre et un caractère spécial.</br>
-                <br><a href='?action=AuthentificationAction'>Retour à la page de connexion</a></br>
-                END;
-            }
-
             $email = filter_var($_POST['email'], FILTER_SANITIZE_EMAIL);
             $password = $_POST['mdp'];
 
             try {
                 AuthentificationAction::authenticate($email, $password);
                 $user = unserialize($_SESSION['user']);
+                var_dump($user);
                 var_dump($_SESSION['user']);
                 return <<<END
                     <h1>Bienvenue {$user->pseudo}</h1>
                     <a href='?action=logout'>Se déconnecter</a>
                 END;
             } catch (AuthException $e) {
+
+                echo $e->getMessage();
                 return <<<END
                 <br>Il y a eu un problème lors de la connexion à votre compte.</br><br>
                 <br><b> Il se pourrait que vous n'avez pas de compte, si vous le souhaitez vous pouvez en créer un en cliquant sur le lien suivant: </b> 
@@ -125,19 +120,6 @@ class AuthentificationAction extends Action
                 END;
             }
         }
-    }
-
-    public static function checkPasswordStrength(string $pass, int $minimumLength): bool {
-
-        if (strlen($pass) < $minimumLength) return false;
-        $digit = preg_match("#[\d]#", $pass); // au moins un digit
-        $special = preg_match("#[\W]#", $pass); // au moins un car. spécial
-        $lower = preg_match("#[a-z]#", $pass); // au moins une minuscule
-        $upper = preg_match("#[A-Z]#", $pass); // au moins une majuscule
-
-        //On débug en echo pour voir les erreurs
-        if (!$digit || !$special || !$lower || !$upper)return false;
-        return true;
     }
 
 }
