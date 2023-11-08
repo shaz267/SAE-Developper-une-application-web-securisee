@@ -28,7 +28,7 @@ class TouitesAction extends Action
         $touites = $stmt->fetchAll();
         $html = $this->renderTouites($touites);
 
-        return  <<<HTML
+        return <<<HTML
                  <div class="touites" id="index">
                  <div class="liens">
                      <ul id="choix">
@@ -75,8 +75,10 @@ class TouitesAction extends Action
                 <h3>{$touite['nom']} {$touite['prenom']}</h3>
                 <br>
                 <p>{$touite['contenu']}</p>
-                <br> <br> <br> <br> <br> 
+                <br>
                 <p>Date du post : {$touite['date_pub']}</p>
+                <br>
+                <a href="?action=TouiteDetailAction&touite_id={$touite['id_touite']}">Voir plus</a>
             </div>
             HTML;
         }
