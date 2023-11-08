@@ -32,7 +32,7 @@ class AuthentificationAction extends Action
                  <div class="deffilementTouite">
                      
                         $html
-                     
+                        
                  </div>
                  </div>
                  HTML;
