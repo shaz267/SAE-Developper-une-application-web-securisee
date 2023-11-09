@@ -10,6 +10,7 @@ use touiteur\classes\Action\PublierAction;
 use touiteur\classes\Action\TouiteDetailAction;
 use touiteur\classes\Action\TouitesAction;
 use touiteur\classes\Action\TouitesPersonneAction;
+use touiteur\classes\Action\EffacerTouiteAction;
 
 class Dispatcher
 {
@@ -59,6 +60,11 @@ class Dispatcher
                     $html = $tA->execute();
                     $this->accueil = "TOUS LES TOUITES";
                     break;
+                case 'EffacerTouiteAction' :
+                    $eTA = new EffacerTouiteAction();
+                    $html = $eTA->execute();
+                    $this->accueil = "TOUS LES TOUITES";
+                    break;
                 default:
                     $mA = new MurAction();
                     $html = $mA->execute();
@@ -72,7 +78,7 @@ class Dispatcher
                  <div class="liens">
                      <ul id="choix">
                          <li><a href="?action=MurAction">Votre Mur</a></li>
-                         <li id="publier"><a href="?action=TouitesAction">Tous Les Touites</a></li>
+                         <li id="TousTouite"><a href="?action=TouitesAction">Tous Les Touites</a></li>
                          <li id="publier"><a href="?action=PublierAction">Publier</a></li>
                          <li id="deconnexion"><a href="?action=logout">Déconnexion</a></li>
                      </ul>
@@ -142,6 +148,7 @@ class Dispatcher
     private function renderPage(string $html)
     {
         echo <<<HTML
+            <!DOCTYPE html>
             <html lang="fr">
                 <head>
                     <title>Page d'accueil</title>
@@ -171,7 +178,6 @@ class Dispatcher
                 </header>
                 
                 <section>
-                    
                         $html
                 </section>
                 

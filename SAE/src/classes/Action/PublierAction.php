@@ -17,7 +17,7 @@ class PublierAction extends Action
             <h1>Publier un touite</h1>
             <form class="formulaireAuth" method='post' action='?action=PublierAction'>
             <label>Contenu : </label>
-            <input type='text' maxlength="235" name='touite' placeholder="Quoi de neuf ?!">
+            <textarea type='text' cols="47" rows="5" name='touite' placeholder="Quoi de neuf ?!" maxlength="235"></textarea>
             <br><br>
             <button type='submit'>Publier</button>
             <br><br>

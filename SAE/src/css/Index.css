@@ -132,6 +132,34 @@ body{
     width: 100%;
 }
 
+#choix #TousTouite{
+    position: absolute;
+    top: 400%;
+    left: 0;
+    width: 100%;
+}
+
+#choix #publier{
+    position: absolute;
+    top: 450%;
+    left: 0;
+    width: 100%;
+}
+
+#choix #deconnexion{
+    position: absolute;
+    top: 500%;
+    left: 0;
+    width: 100%;
+}
+
+#poubelle{
+    position: relative;
+    left:95%;
+    width: 5%;
+    height: 5%;
+}
+
 .formulaireInsc {
     position: relative;
     border-left: grey 1px solid;
@@ -264,4 +292,11 @@ body{
     width: 100%;
     height: 2px;
     border-bottom: grey 1px solid;
+}
+
+.textPublier textarea {
+    width: 100%;
+    height: 100%;
+    border-radius: 30px;
+    resize: none;
 }

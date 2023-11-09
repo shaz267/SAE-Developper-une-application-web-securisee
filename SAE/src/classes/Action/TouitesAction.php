@@ -25,8 +25,11 @@ class TouitesAction extends Action
                 ORDER BY t.date_pub DESC";
         $stmt = $pdo->prepare($sql);
         $stmt->execute();
-        $touites = $stmt->fetchAll();
-        return Action::renderTouites($touites);
+        $touite = $stmt->fetchAll();
+
+        $htmlSupp = '';
+
+        return Action::renderTouites($touite, $htmlSupp);
 
     }
 }

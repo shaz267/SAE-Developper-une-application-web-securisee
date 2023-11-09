@@ -29,6 +29,7 @@ class MurAction extends Action
         $touites = $stmt->fetchAll();
 
         $html = "";
+        $htmlSup = "";
         //On parcourt les touites
         foreach ($touites as $touite) {
 
@@ -38,6 +39,17 @@ class MurAction extends Action
             //On réduit le contenu pour l'afficher en version courte
             $touite['contenu'] = substr($touite['contenu'], 0, 40) . ' ...';
 
+            if(isset($_SESSION['user'])) {
+                $user = unserialize($_SESSION['user']);
+                if ($user->getIdUser() === $touite['id_user']) {
+                    $htmlSupp = <<<HTML
+                    <img id="poubelle" src="img/poubelle.png" alt="Boutton de suppression" >
+                HTML;
+                }else
+                    $htmlSupp = "";
+            }else
+                $htmlSupp = "";
+
             $html .= <<<HTML
             <div class="touite" onclick="location.href='?action=TouiteDetailAction&touite_id={$touite['id_touite']}'">
                 <a class="lienPersonne" href="?action=TouitesPersonneAction&id={$touite['id_user']}"><h3>{$touite['nom']} {$touite['prenom']}</h3></a>
@@ -45,6 +57,10 @@ class MurAction extends Action
                 <p>{$touite['contenu']}</p>
                 <br>
                 <p>Date du post : {$touite['date_pub']}</p>
+                <br>
+                <div class="supprimer" onclick="event.stopPropagation(); if (confirm('Voulez-vous vraiment supprimer ce tweet ?')) { location.href='?action=EffacerTouiteAction&touite_id={$touite['id_touite']}' }">
+                    $htmlSupp
+                </div>
                 <br>
             </div>
             HTML;

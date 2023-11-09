@@ -28,7 +28,24 @@ class TouitesPersonneAction extends Action
         $stmt = $pdo->prepare($sql);
         $stmt->execute();
         $touites = $stmt->fetchAll();
-        return Action::renderTouites($touites);
+
+        $htmlSupp = '';
+
+        if (isset($_SESSION['user'])) {
+
+            foreach ($touites as $touite) {
+                $user = unserialize($_SESSION['user']);
+                if ($user->getIdUser() === $touite['id_user']) {
+                    $htmlSupp = <<<HTML
+                        <img id="poubelle" src="img/poubelle.png" alt="Boutton de suppression" >
+                    HTML;
+                } else {
+                    $htmlSupp = '';
+                }
+            }
+        }
+
+        return Action::renderTouites($touites, $htmlSupp);
 
     }
 }

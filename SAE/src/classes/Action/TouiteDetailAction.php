@@ -16,18 +16,32 @@ class TouiteDetailAction extends Action
 
         $pdo = ConnectionFactory::makeConnection();
 
-        $sql = "SELECT t.id_user, u.nom, u.prenom, t.contenu, t.date_pub FROM touite t
+        $sql = "SELECT t.id_user, u.nom, u.prenom, t.contenu, t.date_pub, t.id_touite FROM touite t
                 INNER JOIN utilisateur u ON t.id_user = u.id_user
                 where t.id_touite = $touiteId";
         $stmt = $pdo->prepare($sql);
         $stmt->execute();
-        $touites = $stmt->fetch();
-        $html = $this->renderDetailTouites($touites);
+        $touite = $stmt->fetch();
+
+
+        if(isset($_SESSION['user'])) {
+            $user = unserialize($_SESSION['user']);
+            if ($user->getIdUser() === $touite['id_user']) {
+                $htmlSupp = <<<HTML
+                    <img id="poubelle" src="img/poubelle.png" alt="Boutton de suppression" >
+                HTML;
+            }else
+                $htmlSupp = "";
+        }else
+            $htmlSupp = "";
+
+
+        $html =  $this->renderDetailTouites($touite, $htmlSupp);
 
         if(isset($_POST['boutonsuivre'])){
             $query = 'INSERT INTO SUIT (id_suiveur, id_suivi) VALUES (?, ?)';
             $usersuiveur = unserialize($_SESSION['user'])->getIdUser();
-            $usersuivi = $touites['id_user'];
+            $usersuivi = $touite['id_user'];
             $st = $pdo->prepare($query);
             $st->bindParam(1, $usersuiveur, PDO::PARAM_INT);
             $st->bindParam(2, $usersuivi, PDO::PARAM_INT);
@@ -36,7 +50,7 @@ class TouiteDetailAction extends Action
         return $html;
     }
 
-    private function renderDetailTouites($touite): string
+    private function renderDetailTouites($touite, $htmlSupp): string
     {
 
         //On convertit le contenu en UTF-8
@@ -54,6 +68,9 @@ class TouiteDetailAction extends Action
                         <br>
                         <img id="like" src="img/like.png" alt="Boutton de like">
                         <img id="dislike" src="img/dislike.png" alt="Boutton de dislike">
+                        <div class="supprimer" onclick="event.stopPropagation(); if (confirm('Voulez-vous vraiment supprimer ce tweet ?')) { location.href='?action=EffacerTouiteAction&touite_id={$touite['id_touite']}' }">
+                            $htmlSupp
+                        </div>
                     </div>
                     <div class="Commentaire">
                         <h2>Commentaires</h2>
