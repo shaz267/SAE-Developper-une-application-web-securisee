@@ -140,6 +140,10 @@ body{
 
 }
 
+#erreur{
+    color: red;
+}
+
 .formulaireInsc::after {
     content: '';
     position: absolute;

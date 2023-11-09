@@ -25,21 +25,60 @@ class PublierAction extends Action
             END;
         }
         else{
+            $pdo = ConnectionFactory::makeConnection();
 
+            //----------------Partie insertion du touite dans la base de données-------------------
             $user = unserialize($_SESSION['user']);
             $id_user = $user->getIdUser();
 
-            $pdo = ConnectionFactory::makeConnection();
-            $sql = "INSERT INTO touite (id_user, contenu, date_pub) VALUES ($id_user, '{$_POST['touite']}', NOW())";
+
+            $sql = "INSERT INTO touite (id_user, contenu, date_pub) VALUES (:id_user, :contenu, NOW())";
             $stmt = $pdo->prepare($sql);
+
+            $stmt->bindParam(':id_user', $id_user);
+            $stmt->bindParam(':contenu', $_POST['touite']);
             $stmt->execute();
 
+
+
+            //----------------Partie insertion des hashtags dans la base de données-------------------
+
+            //On filtre le contenu du touite
+            $_POST['touite'] = filter_var($_POST['touite'], FILTER_SANITIZE_STRING);
+
+            //On extrait les hashtags
+            $hashtags = [];
+            preg_match_all('/#[^ #]+/i', $_POST['touite'], $hashtags);
+
+            //Pour chaque hashtag
+            foreach ($hashtags[0] as $key => $value) {
+                //On envoie les hashtags dans la base de données
+                $sql = "INSERT INTO tag (libelle_tag, description_tag) VALUES (:hashtag, '')";
+                $stmt = $pdo->prepare($sql);
+                $stmt->bindParam(':hashtag', $value);
+                $stmt->execute();
+
+
+                //On insere dans touitetag l'id du touite et du tag
+                $sql = "INSERT INTO touitetag (id_touite, id_tag) VALUES ((SELECT MAX(id_touite) FROM touite), (SELECT id_tag FROM tag WHERE libelle_tag = :hashtag))";
+                $stmt = $pdo->prepare($sql);
+                $stmt->bindParam(':hashtag', $value);
+                $stmt->execute();
+            }
+
+            //On transforme les hashtags en liens
+            foreach ($hashtags[0] as $key => $value) {
+                $_POST['touite'] = str_replace($value, "<a href='?action=TagAction&hashtag=".substr($value, 1)."'>$value</a>", $_POST['touite']);
+            }
+
+
+
+            //On redirige vers l'accueil
             header("Location: ?action=MurAction");
 
             //On ne retourne rien
             return '';
 
         }
-
     }
 }

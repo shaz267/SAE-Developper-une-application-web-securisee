@@ -47,17 +47,17 @@ class InscriptionAction extends Action {
             $st->execute();
             $result = $st->fetch(PDO::FETCH_ASSOC);
             if($result){
-                $html .= '<p>Cet email est déjà utilisé</p>';
+                $html .= '<p id="erreur">Cet email est déjà utilisé</p>';
                 $bonmail = false;
             }
 
         }
         if($_SERVER['REQUEST_METHOD'] === 'POST' && self::checkPasswordStrength($_POST['mdp'], 8) && $bonmail){
             $this->register();
-            $html .= '<p>Vous êtes inscrit avec succès</p>';
+            $html .= '<p id="erreur">Vous êtes inscrit avec succès</p>';
         }
         elseif ($_SERVER['REQUEST_METHOD'] === 'POST' && !self::checkPasswordStrength($_POST['mdp'], 8)){
-            $html .= '<p>Le mot de passe doit contenir au moins 8 caractères, une majuscule, une minuscule, un chiffre et un caractère spécial</p>';
+            $html .= '<p id="erreur">Le mot de passe doit contenir au moins 8 caractères, une majuscule, une minuscule, un chiffre et un caractère spécial</p>';
         }
         elseif($_SERVER['REQUEST_METHOD'] === 'GET'){
             //afficher le mur
