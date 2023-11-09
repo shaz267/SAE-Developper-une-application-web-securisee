@@ -37,7 +37,7 @@ class MurAction extends Action
             $touite['contenu'] = utf8_encode($touite['contenu']);
 
             //On réduit le contenu pour l'afficher en version courte
-            $touite['contenu'] = substr($touite['contenu'], 0, 40) . ' ...';
+            $touite['contenu'] = Action::couperTexte($touite['contenu'], 40);
 
             if(isset($_SESSION['user'])) {
                 $user = unserialize($_SESSION['user']);
@@ -71,4 +71,5 @@ class MurAction extends Action
         return $html;
 
     }
+
 }
