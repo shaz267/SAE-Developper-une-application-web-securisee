@@ -27,9 +27,7 @@ class PublierAction extends Action
         else{
             $pdo = ConnectionFactory::makeConnection();
 
-
-
-            //----------------Partie insertion des hashtags dans la base de données-------------------
+            //Partie filtrage du contenu du touite et extraction des hashtags
 
             //On filtre le contenu du touite
             $_POST['touite'] = filter_var($_POST['touite'], FILTER_SANITIZE_STRING);
@@ -37,6 +35,35 @@ class PublierAction extends Action
             //On extrait les hashtags
             $hashtags = [];
             preg_match_all('/#[^ #]+/i', $_POST['touite'], $hashtags);
+
+            $contenu = $_POST['touite'];
+
+            //On transforme les hashtags en liens
+            foreach ($hashtags[0] as $key => $value) {
+                $contenu = str_replace($value, "<a href='?action=TagAction&hashtag=".substr($value, 1)."'>$value</a>", $contenu);
+            }
+
+            //----------------Partie insertion du touite dans la base de données-------------------
+            $user = unserialize($_SESSION['user']);
+            $id_user = $user->getIdUser();
+
+
+            $sql = "INSERT INTO touite (id_user, contenu, date_pub) VALUES (:id_user, :contenu, NOW())";
+            $stmt = $pdo->prepare($sql);
+            $stmt->bindParam(':id_user', $id_user);
+            $stmt->bindParam(':contenu', $contenu);
+            $stmt->execute();
+
+
+
+            //----------------Partie insertion des hashtags dans la base de données-------------------
+
+
+            //On récupère l' id_touite  pour l'insérer dans touitetag
+            $sql = "SELECT MAX(id_touite) FROM touite";
+            $stmt = $pdo->prepare($sql);
+            $stmt->execute();
+            $id_touite = $stmt->fetch();
 
             //Pour chaque hashtag
             foreach ($hashtags[0] as $key => $value) {
@@ -50,32 +77,20 @@ class PublierAction extends Action
                 $stmt->bindParam(':hashtag', $value);
                 $stmt->execute();
 
-                //On insere dans touitetag l'id du touite et du tag
-                $sql = "INSERT INTO touitetag (id_touite, id_tag) VALUES ((SELECT MAX(id_touite) FROM touite) + 1, (SELECT id_tag FROM tag WHERE libelle_tag = :hashtag))";
+                //On récupere l'id du tag
+                $sql = "SELECT id_tag FROM tag WHERE libelle_tag = :hashtag ORDER BY id_tag DESC LIMIT 1";
                 $stmt = $pdo->prepare($sql);
                 $stmt->bindParam(':hashtag', $value);
                 $stmt->execute();
+                $id_tag = $stmt->fetch();
+
+
+                //On insere dans touitetag l'id du touite et du tag
+                $sql = "INSERT INTO touitetag (id_touite, id_tag) VALUES ({$id_touite[0]}, {$id_tag[0]})";
+                $inser = $pdo->exec($sql);
+
+
             }
-
-            //On transforme les hashtags en liens
-            foreach ($hashtags[0] as $key => $value) {
-                $_POST['touite'] = str_replace($value, "<a href='?action=TagAction&hashtag=".substr($value, 1)."'>$value</a>", $_POST['touite']);
-            }
-
-
-            //----------------Partie insertion du touite dans la base de données-------------------
-            $user = unserialize($_SESSION['user']);
-            $id_user = $user->getIdUser();
-
-
-            $sql = "INSERT INTO touite (id_user, contenu, date_pub) VALUES (:id_user, :contenu, NOW())";
-            $stmt = $pdo->prepare($sql);
-
-            $stmt->bindParam(':id_user', $id_user);
-            $stmt->bindParam(':contenu', $_POST['touite']);
-            $stmt->execute();
-
-
             //On redirige vers l'accueil
             header("Location: ?action=MurAction");
 
