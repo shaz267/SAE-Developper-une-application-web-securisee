@@ -14,6 +14,8 @@ use touiteur\classes\Action\TouitesPersonneAction;
 class Dispatcher
 {
 
+    private $accueil = "Accueil";
+
     private $action;
 
     public function __construct()
@@ -36,10 +38,12 @@ class Dispatcher
                 case 'TouiteDetailAction':
                     $tDA = new TouiteDetailAction();
                     $html = $tDA->execute();
+                    $this->accueil = "TOUITE DETAIL";
                     break;
                 case 'TouitesPersonneAction' :
                     $tPA = new TouitesPersonneAction();
                     $html = $tPA->execute();
+                    $this->accueil = "TOUITES D'UNE PERSONNE";
                     break;
                 case 'logout' :
                     session_destroy();
@@ -48,10 +52,17 @@ class Dispatcher
                 case 'PublierAction' :
                     $pA = new PublierAction();
                     $html = $pA->execute();
+                    $this->accueil = "PUBLIER UN TOUITE";
+                    break;
+                case 'TouitesAction' :
+                    $tA = new TouitesAction();
+                    $html = $tA->execute();
+                    $this->accueil = "TOUS LES TOUITES";
                     break;
                 default:
                     $mA = new MurAction();
                     $html = $mA->execute();
+                    $this->accueil = "VOTRE MUR";
                     break;
 
             }
@@ -60,7 +71,8 @@ class Dispatcher
                  <div class="touites" id="index">
                  <div class="liens">
                      <ul id="choix">
-                         <li><a href="?action=TouitesAction">Accueil</a></li>
+                         <li><a href="?action=MurAction">Votre Mur</a></li>
+                         <li id="publier"><a href="?action=TouitesAction">Tous Les Touites</a></li>
                          <li id="publier"><a href="?action=PublierAction">Publier</a></li>
                          <li id="deconnexion"><a href="?action=logout">Déconnexion</a></li>
                      </ul>
@@ -74,29 +86,34 @@ class Dispatcher
                  </div>
                  HTML;
         }
-        else{
+        else {
 
             switch ($this->action) {
                 case 'TouiteDetailAction':
                     $tDA = new TouiteDetailAction();
                     $html = $tDA->execute();
+                    $this->accueil = "TOUITE DETAIL";
                     break;
                 case 'TouitesPersonneAction' :
                     $tPA = new TouitesPersonneAction();
                     $html = $tPA->execute();
+                    $this->accueil = "TOUITES D'UNE PERSONNE";
                     break;
                 case 'InscriptionAction' :
                     $iA = new InscriptionAction();
                     $html = $iA->execute();
+                    $this->accueil = "INSCRIPTION";
                     break;
                 case 'AuthentificationAction' :
                     $aA = new AuthentificationAction();
                     $html = $aA->execute();
+                    $this->accueil = "CONNEXION";
                     break;
                 default:
 
                     $tA = new TouitesAction();
                     $html = $tA->execute();
+                    $this->accueil = "TOUS LES TOUITES";
                     break;
             }
 
@@ -140,7 +157,7 @@ class Dispatcher
                                 <img class="imageIndex" src="img/logo.png" alt="Le logo principal"/>
                             </a>
                         </div>
-                        <div class='accueil'><h1>ACCUEIL</h1></div>
+                        <div class='accueil'><h1>{$this->accueil}</h1></div>
                         <div class="loupe">
                             <img class="imageIndex" src="img/loupe.png" alt="Recherche"/>
                         </div>
