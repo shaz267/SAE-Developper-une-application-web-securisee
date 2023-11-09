@@ -50,6 +50,8 @@ class MurAction extends Action
             }else
                 $htmlSupp = "";
 
+
+            //On ajoute le code HTML du touite
             $html .= <<<HTML
             <div class="touite" onclick="location.href='?action=TouiteDetailAction&touite_id={$touite['id_touite']}'">
                 <a class="lienPersonne" href="?action=TouitesPersonneAction&id={$touite['id_user']}"><h3>{$touite['nom']} {$touite['prenom']}</h3></a>

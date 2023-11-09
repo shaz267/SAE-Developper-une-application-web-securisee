@@ -19,7 +19,6 @@ class TagAction extends Action
                 WHERE tag.libelle_tag = '{$_GET["hashtag"]}'
                 ORDER BY t.date_pub DESC";
         $stmt = $pdo->prepare($sql);
-        var_dump($stmt);
         $stmt->execute();
         $touites = $stmt->fetchAll();
         return Action::renderTouites($touites, "");
