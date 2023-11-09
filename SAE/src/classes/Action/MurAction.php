@@ -41,7 +41,7 @@ class MurAction extends Action
 
             if(isset($_SESSION['user'])) {
                 $user = unserialize($_SESSION['user']);
-                if ($user->getIdUser() === $touite['id_user']) {
+                if ($user->getIdUser() == $touite['id_user']) {
                     $htmlSupp = <<<HTML
                     <img id="poubelle" src="img/poubelle.png" alt="Boutton de suppression" >
                 HTML;
