@@ -15,6 +15,8 @@ abstract class Action
     public static function renderTouites(array $touites, $htmlSupp): string
     {
 
+
+
         $html = "";
         //On parcourt les touites
         foreach ($touites as $touite) {
@@ -33,7 +35,7 @@ abstract class Action
                 <br>
                 <p>Date du post : {$touite['date_pub']}</p>
                 <br>
-                <div class="supprimer" onclick="event.stopPropagation(); if (confirm('Voulez-vous vraiment supprimer ce tweet ?')) { location.href='?action=EffacerTouiteAction&touite_id={$touite['id_touite']}' }">
+                <div class="supprimer" onclick="event.stopPropagation(); if (confirm('Voulez-vous vraiment supprimer ce tweet ?')) {location.href='?action=EffacerTouiteAction&touite_id={$touite['id_touite']}'}">
                             $htmlSupp
                 </div>
                 <br>        
