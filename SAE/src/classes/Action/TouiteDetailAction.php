@@ -2,13 +2,16 @@
 
 namespace touiteur\classes\Action;
 
+use PDO;
 use touiteur\classes\ConnectionFactory;
+use touiteur\classes\User;
 
 class TouiteDetailAction extends Action
 {
 
     public function execute(): string
     {
+        $html = '';
         $touiteId = $_GET['touite_id'];
 
         $pdo = ConnectionFactory::makeConnection();
@@ -19,9 +22,18 @@ class TouiteDetailAction extends Action
         $stmt = $pdo->prepare($sql);
         $stmt->execute();
         $touites = $stmt->fetch();
-        return $this->renderDetailTouites($touites);
+        $html = $this->renderDetailTouites($touites);
 
-
+        if(isset($_POST['boutonsuivre'])){
+            $query = 'INSERT INTO SUIT (id_suiveur, id_suivi) VALUES (?, ?)';
+            $usersuiveur = unserialize($_SESSION['user'])->getIdUser();
+            $usersuivi = $touites['id_user'];
+            $st = $pdo->prepare($query);
+            $st->bindParam(1, $usersuiveur, PDO::PARAM_INT);
+            $st->bindParam(2, $usersuivi, PDO::PARAM_INT);
+            $st->execute();
+        }
+        return $html;
     }
 
     private function renderDetailTouites($touite): string
@@ -33,7 +45,9 @@ class TouiteDetailAction extends Action
         return <<<HTML
                     <div class="touite" id="Detail">
                         <a class="lienPersonne" href="?action=TouitesPersonneAction&id={$touite['id_user']}"><h3>{$touite['nom']} {$touite['prenom']}</h3></a>
-                        <br>
+                        <form method="post">
+                        <input type="submit" name="boutonsuivre" value="Suivre" />
+                        </form>
                         <p>{$touite['contenu']}</p>
                         <br>
                         <p>Date du post : {$touite['date_pub']}</p>
@@ -78,7 +92,4 @@ class TouiteDetailAction extends Action
                     </div>
             HTML;
     }
-
-
-
 }

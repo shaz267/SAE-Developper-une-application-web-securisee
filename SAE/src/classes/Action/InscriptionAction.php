@@ -18,13 +18,13 @@ class InscriptionAction extends Action {
                  <h2>Bienvenue sur Touiteur, vous pouvez vous inscrire ci-dessous :</h2>
                  <form class="formulaireInsc" method="POST" action="?action=InscriptionAction">
                  <label>Nom : </label>
-                 <input type="text" name="nom" placeholder="ex : Poutre">
+                 <input type="text" name="nom" placeholder="ex : Votre Nom">
                  <br><br>
                  <label>Prénom : </label>
-                 <input type="text" name="prenom" placeholder="ex : Olivier">
+                 <input type="text" name="prenom" placeholder="ex : Votre Prénom">
                  <br><br>
                  <label>E-mail : </label>
-                 <input type="email" name="email" placeholder="ex : OlivPoutre@gmail.com">
+                 <input type="email" name="email" placeholder="ex : dupont.gerard@gmail.com">
                  <br><br>
                  <label>Mot de passe : </label>
                  <input type="password" name="mdp">

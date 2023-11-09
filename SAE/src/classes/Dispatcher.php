@@ -157,7 +157,8 @@ class Dispatcher
                                 <img class="imageIndex" src="img/logo.png" alt="Le logo principal"/>
                             </a>
                         </div>
-                        <div class='accueil'><h1>{$this->accueil}</h1></div>
+                        <div class='accueil'><h1>{$this->accueil}</h1>
+                        </div>
                         <div class="loupe">
                             <img class="imageIndex" src="img/loupe.png" alt="Recherche"/>
                         </div>
