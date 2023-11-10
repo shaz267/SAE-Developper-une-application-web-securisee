@@ -18,7 +18,7 @@ class TouiteDetailAction extends Action
 
         $sql = "SELECT t.id_user, u.nom, u.prenom, t.contenu, t.date_pub, t.id_touite FROM touite t
                 INNER JOIN utilisateur u ON t.id_user = u.id_user
-                where t.id_touite = $touiteId";
+                where t.id_touite = {$touiteId}";
         $stmt = $pdo->prepare($sql);
         $stmt->execute();
         $touite = $stmt->fetch();
