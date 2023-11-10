@@ -168,6 +168,10 @@ class Dispatcher
 
     private function renderPage(string $html)
     {
+        if(isset($_POST['recherchertag'])){
+            $tag = $_POST['recherchertag'];
+            header("Location: ?action=TagAction&hashtag=$tag");
+        }
         echo <<<HTML
             <!DOCTYPE html>
             <html lang="fr">
@@ -189,11 +193,13 @@ class Dispatcher
                         {$this->buttonTag}
                         </div>
                         <div class="loupe">
-                            <img class="imageIndex" src="img/loupe.png" alt="Recherche"/>
+                            <button type="submit" class="boutonrecherche"><img class="imageIndex" src="img/loupe.png" alt="Recherche"/></button>
                         </div>
                         <div class="recherche">
                             <label>
-                                <input type="search" placeholder="Chercher"/>
+                                <form method="post">
+                                <input name="recherchertag" placeholder="Rechercher un tag">
+                                </form>
                             </label>
                         </div>
                     </div>
@@ -208,6 +214,7 @@ class Dispatcher
                 </html>
                 
             HTML;
+        var_dump($_POST);
 
     }
 

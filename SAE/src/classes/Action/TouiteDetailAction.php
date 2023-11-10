@@ -35,7 +35,8 @@ class TouiteDetailAction extends Action
 
         $html =  $this->renderDetailTouites($touite, $htmlSupp);
 
-        if(isset($_POST['boutonsuivre'])){
+
+        if (isset($_POST['boutonsuivre'])) {
 
             // Vérifier que l'utilisateur connecté ne suit pas déjà l'utilisateur du touite
             $query = 'SELECT * FROM SUIT WHERE id_suiveur = ? AND id_suivi = ?';
@@ -47,15 +48,13 @@ class TouiteDetailAction extends Action
             $st->execute();
             $result = $st->fetchAll();
 
-            if($st->rowCount() != 0){
+            if ($st->rowCount() != 0) {
                 $html .= "<script>alert('Vous suivez déjà cet utilisateur.');</script>";
-            }
-            else{
+            } else {
                 // Gérer le fait qu'on ne puisse pas se suivre soi-même
-                if($usersuiveur == $usersuivi){
+                if ($usersuiveur == $usersuivi) {
                     $html .= "<script>alert('Vous ne pouvez pas vous suivre vous-même.');</script>";
-                }
-                else {
+                } else {
                     $query = 'INSERT INTO SUIT (id_suiveur, id_suivi) VALUES (?, ?)';
                     $usersuiveur = unserialize($_SESSION['user'])->getIdUser();
                     $usersuivi = $touite['id_user'];
@@ -68,17 +67,17 @@ class TouiteDetailAction extends Action
             }
         }
 
-        if(isset($_POST['boutonnpsuivre'])){
+            if (isset($_POST['boutonnpsuivre'])) {
 
-            $query = 'DELETE FROM SUIT WHERE id_suiveur = ? AND id_suivi = ?';
-            $usersuiveur = unserialize($_SESSION['user'])->getIdUser();
-            $usersuivi = $touite['id_user'];
-            $st = $pdo->prepare($query);
-            $st->bindParam(1, $usersuiveur, PDO::PARAM_INT);
-            $st->bindParam(2, $usersuivi, PDO::PARAM_INT);
-            $st->execute();
-            $html.= "<script>alert('Vous ne suivez plus cet utilisateur.');</script>";
-        }
+                $query = 'DELETE FROM SUIT WHERE id_suiveur = ? AND id_suivi = ?';
+                $usersuiveur = unserialize($_SESSION['user'])->getIdUser();
+                $usersuivi = $touite['id_user'];
+                $st = $pdo->prepare($query);
+                $st->bindParam(1, $usersuiveur, PDO::PARAM_INT);
+                $st->bindParam(2, $usersuivi, PDO::PARAM_INT);
+                $st->execute();
+                $html .= "<script>alert('Vous ne suivez plus cet utilisateur.');</script>";
+            }
 
         if(isset($_GET['note'])){
             $note = $_GET['note'];

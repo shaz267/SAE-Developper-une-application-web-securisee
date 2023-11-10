@@ -310,3 +310,8 @@ body{
     position: relative;
     font-family: "Comic Sans MS", cursive, sans-serif;
 }
+
+.boutonrecherche{
+    background-color: white;
+    border: white;
+}
