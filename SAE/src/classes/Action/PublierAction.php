@@ -47,7 +47,7 @@ class PublierAction extends Action
             $user = unserialize($_SESSION['user']);
             $id_user = $user->getIdUser();
 
-            $sql1 = "SELECT MAX(id_touite)+1 as max FROM TOUITE";
+            $sql1 = "SELECT MAX(id_touite)+1 AS max FROM TOUITE";
             $stmt1 = $pdo->prepare($sql1);
             $stmt1->execute();
             $maxId = $stmt1->fetch(\PDO::FETCH_ASSOC);
@@ -56,7 +56,7 @@ class PublierAction extends Action
             $stmt2 = $pdo->prepare($sql2);
             $stmt2->bindParam(':id_touite',$maxId['max']);
             $stmt2->bindParam(':id_user', $id_user);
-            $stmt2->bindParam(':contenu', $_POST['touite']);
+            $stmt2->bindParam(':contenu', $contenu);
             $stmt2->execute();
             $stmt2->closeCursor();
 
