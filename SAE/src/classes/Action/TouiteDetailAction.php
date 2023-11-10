@@ -93,7 +93,7 @@ class TouiteDetailAction extends Action
             $query = 'INSERT INTO NOTATION (id_user, id_touite, note) VALUES (?, ?, ?)';
             $user = unserialize($_SESSION['user'])->getIdUser();
             $st = $pdo->prepare($query);
-            $st->bindParam(1, $user, PDO::PARAM_INT);
+            $st->bindParam(1, $touite['id_user'], PDO::PARAM_INT);
             $st->bindParam(2, $touiteId, PDO::PARAM_INT);
             $st->bindParam(3, $note, PDO::PARAM_INT);
             $rep = $st->execute();
@@ -103,7 +103,7 @@ class TouiteDetailAction extends Action
                 $query = 'UPDATE NOTATION SET note = ? WHERE id_user = ? AND id_touite = ?';
                 $st = $pdo->prepare($query);
                 $st->bindParam(1, $note, PDO::PARAM_INT);
-                $st->bindParam(2, $user, PDO::PARAM_INT);
+                $st->bindParam(2, $touite['id_user'], PDO::PARAM_INT);
                 $st->bindParam(3, $touiteId, PDO::PARAM_INT);
                 $st->execute();
             }
