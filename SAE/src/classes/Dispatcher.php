@@ -47,8 +47,11 @@ class Dispatcher
 
     public function run()
     {
+
+        $pagination = "";
+
         //Si l'utilisateur est connecté
-        if (isset($_SESSION['user'])){
+        if (isset($_SESSION['user'])) {
 
             $user = unserialize($_SESSION['user']);
             $nomPrenom = $user->prenom . " " . $user->nom;
@@ -77,6 +80,7 @@ class Dispatcher
                     $tA = new TouitesAction();
                     $html = $tA->execute();
                     $this->accueil = "TOUS LES TOUITES";
+                    $pagination = $this->pagination();
                     break;
                 case 'TagAction' :
                     $tA = new TagAction();
@@ -109,6 +113,8 @@ class Dispatcher
                          <li id="publier"><a href="?action=PublierAction">Publier</a></li>
                          <li id="narcissique"><a href="?action=NarcissiqueAction">Infos Du Compte</a></li>                         
                          <li id="deconnexion"><a href="?action=logout">Déconnexion</a></li>
+                        
+                         {$pagination}
                      </ul>
                  </div>
                  <div class="deffilementTouite">
@@ -153,6 +159,7 @@ class Dispatcher
                     $tA = new TouitesAction();
                     $html = $tA->execute();
                     $this->accueil = "TOUS LES TOUITES";
+                    $pagination = $this->pagination();
                     break;
             }
 
@@ -163,6 +170,7 @@ class Dispatcher
                          <li><a href="?action=TouitesAction">Accueil</a></li>
                          <li id="connexion"><a href="?action=AuthentificationAction">Connexion</a></li>
                          <li id="inscription"><a href="?action=InscriptionAction">Inscription</a></li>
+                         {$pagination}
                      </ul>
                  </div>
                  <div class="deffilementTouite">
@@ -227,5 +235,33 @@ class Dispatcher
                 
             HTML;
     }
+
+    public function pagination(): string
+    {
+        // On récupère le nombre de pages et la page courante
+        $pages = TouitesAction::getPages();
+        $currentPage = TouitesAction::getCurrentPage();
+
+        $html = <<<HTML
+            <li id="pagination"><nav id="pag">
+        HTML;
+
+        // Boucle sur les pages
+        for ($page = 1; $page <= $pages; $page++) {
+            $html .= <<<HTML
+        <!-- Lien vers chacune des pages (activé si on se trouve sur la page correspondante) -->
+        <li class="page-item <?= ($currentPage == $page) ? " active" : "" ?>| 
+            <a  href="?action=TouitesAction&page=$page" class="page-link">$page</a>
+        </li>
+        HTML;
+        }
+
+        $html .= '</nav></li>';
+
+        return $html;
+    }
+
+
+
 
 }
