@@ -54,10 +54,15 @@ class TouitesAction extends Action
 
         $htmlSupp = '';
 
+        //On appelle la fonction renderTouites pour afficher les touites
         return Action::renderTouites($touite, $htmlSupp);
 
     }
 
+    /**
+     * Fonction qui permet de retourner le nombre de pages total
+     * @return float
+     */
     static function getPages(){
         $pdo = ConnectionFactory::makeConnection();
 

@@ -31,10 +31,14 @@ class TouitesPersonneAction extends Action
 
         $htmlSupp = '';
 
+        //Si l'utilisateur est connecté
         if (isset($_SESSION['user'])) {
 
+            //On parcourt les touites
             foreach ($touites as $touite) {
+                //On récupère l'utilisateur connecté
                 $user = unserialize($_SESSION['user']);
+                //Si l'utilisateur connecté est l'auteur de la touite
                 if ($user->getIdUser() == $touite['id_user']) {
                     $htmlSupp = <<<HTML
                         <img id="poubelle" src="img/poubelle.png" alt="Boutton de suppression" >
