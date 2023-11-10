@@ -4,6 +4,10 @@ namespace touiteur\classes;
 
 use touiteur\classes\Exceptions\InvalidArgumentException;
 
+/**
+ * Class User
+ * @package touiteur\classes
+ */
 class User
 {
 

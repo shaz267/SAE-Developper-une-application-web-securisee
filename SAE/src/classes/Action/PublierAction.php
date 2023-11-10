@@ -4,6 +4,10 @@ namespace touiteur\classes\Action;
 
 use touiteur\classes\ConnectionFactory;
 
+/**
+ * Class PublierAction, permet de publier un touite
+ * @package touiteur\classes\Action
+ */
 class PublierAction extends Action
 {
 

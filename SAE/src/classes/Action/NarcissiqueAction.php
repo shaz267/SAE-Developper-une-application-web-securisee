@@ -4,9 +4,17 @@ namespace touiteur\classes\Action;
 
 use touiteur\classes\ConnectionFactory;
 
+/**
+ * Class NarcissiqueAction
+ * @package touiteur\classes\Action
+ */
 class NarcissiqueAction extends Action
 {
 
+    /**
+     * Fonction qui permet de retourner le code HTML
+     * @return string, le code HTML
+     */
     public function execute(): string
     {
 

@@ -3,6 +3,9 @@
 namespace touiteur\classes\Action;
 use touiteur\classes\ConnectionFactory;
 
+/**
+ * Class TouitesAction, qui permet d'afficher les touites
+ */
 class TouitesAction extends Action
 {
 

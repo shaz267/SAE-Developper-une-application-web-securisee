@@ -5,6 +5,10 @@ namespace touiteur\classes\Action;
 use PDO;
 use touiteur\classes\ConnectionFactory;
 
+/**
+ * Class TagAction, permet d'afficher les touites d'un tag
+ * @package touiteur\classes\Action
+ */
 class TagAction extends Action
 {
 
@@ -51,6 +55,9 @@ class TagAction extends Action
         return Action::renderTouites($touites, "") . $html;
     }
 
+    /**
+     * @return string, le code HTML du bouton suivre tag
+     */
     public static function insererBoutonSuivreTag():string {
 
         return <<<HTML

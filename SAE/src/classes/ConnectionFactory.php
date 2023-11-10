@@ -2,6 +2,11 @@
 namespace touiteur\classes;
 
 use PDO;
+
+/**
+ * Class ConnectionFactory, qui permet de se connecter à la base de données
+ * @package touiteur\classes
+ */
 class ConnectionFactory
 {
     /**
@@ -20,7 +25,8 @@ class ConnectionFactory
     }
 
     /**
-     * @return PDO Retourne une instance de PDO
+     * Fonction qui permet de se connecter à la base de données
+     * @return PDO, la connexion
      */
     static function makeConnection(): PDO
     {

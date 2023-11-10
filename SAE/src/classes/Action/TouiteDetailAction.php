@@ -6,15 +6,27 @@ use PDO;
 use touiteur\classes\ConnectionFactory;
 use touiteur\classes\User;
 
+/**
+ * Classe TouiteDetailAction
+ */
 class TouiteDetailAction extends Action
 {
 
+    /*
+     * permet d'afficher ou pas le bouton Suivre
+     */
     private $htmlSuivre = "";
 
+    /**
+     * @return string, retourne le code HTML pour afficher le détail d'un touite
+     * @throws \Exception
+     */
     public function execute(): string
     {
+        // On vérifie que l'id du touite est bien passé en paramètre
         $touiteId = $_GET['touite_id'];
 
+        // On se connecte à la base de données
         $pdo = ConnectionFactory::makeConnection();
 
         $sql = "SELECT t.id_user, u.nom, u.prenom, t.contenu, t.date_pub, t.id_touite FROM touite t
@@ -24,6 +36,7 @@ class TouiteDetailAction extends Action
         $stmt->execute();
         $touite = $stmt->fetch();
 
+        // On vérifie que l'utilisateur est connecté
         if(isset($_SESSION['user'])) {
             $user = unserialize($_SESSION['user']);
             $htmlPoubelle = "";
@@ -48,13 +61,11 @@ class TouiteDetailAction extends Action
 
         }
         else{
-
+            // On vide la variable htmlSupp pour ne pas afficher les boutons like/dislike
             $htmlSupp = "";
         }
 
-
         $html =  $this->renderDetailTouites($touite, $htmlSupp);
-
 
         if (isset($_POST['boutonsuivre'])) {
 
@@ -68,13 +79,16 @@ class TouiteDetailAction extends Action
             $st->execute();
             $result = $st->fetchAll();
 
+            // Cas ou l'utilisateur suit déjà l'utilisateur du touite
             if ($st->rowCount() != 0) {
                 $html .= "<script>alert('Vous suivez déjà cet utilisateur.');</script>";
             } else {
                 // Gérer le fait qu'on ne puisse pas se suivre soi-même
                 if ($usersuiveur == $usersuivi) {
                     $html .= "<script>alert('Vous ne pouvez pas vous suivre vous-même.');</script>";
-                } else {
+                }
+                // Cas général où l'utilisateur ne suit pas déja l'utilisateur du touite
+                else {
                     $query = 'INSERT INTO SUIT (id_suiveur, id_suivi) VALUES (?, ?)';
                     $usersuiveur = unserialize($_SESSION['user'])->getIdUser();
                     $usersuivi = $touite['id_user'];
@@ -87,6 +101,7 @@ class TouiteDetailAction extends Action
             }
         }
 
+        // Pour ne plus suivre un utilisateur
             if (isset($_POST['boutonnpsuivre'])) {
 
                 $query = 'DELETE FROM SUIT WHERE id_suiveur = ? AND id_suivi = ?';
@@ -135,10 +150,17 @@ class TouiteDetailAction extends Action
         return $html;
     }
 
+    /**
+     * @param $touite, le touite dont on veut afficher le détail
+     * @param $htmlSupp, le code HTML pour afficher les boutons like/dislike si l'user est connecté ou non
+     * @return string, retourne le code HTML pour afficher le détail d'un touite
+     */
     private function renderDetailTouites($touite, $htmlSupp): string
     {
 
+        // On vérifie si le touite contient une image
         if ($this->cheminImage($touite) != null) {
+            // On récupère le chemin de l'image
             $cheminImage = $this->cheminImage($touite);
 
 
@@ -201,6 +223,10 @@ class TouiteDetailAction extends Action
             HTML;
     }
 
+    /**
+     * @param $touite, le touite dont on veut récupérer le chemin de l'image
+     * @return string, retourne le chemin de l'image
+     */
     private function cheminImage($touite): string{
         $pdo = ConnectionFactory::makeConnection();
         $sql = "SELECT image.chemin_fichier FROM image 
