@@ -46,13 +46,6 @@ class TagAction extends Action
             } catch (\PDOException $e){}
         }
 
-        // On vérifie que l'utilisateur recherche un tag dans la barre de recherche
-        if(isset($_POST['recherchertag'])){
-            echo "test";
-            $tag = $_POST['recherche'];
-            header("Location: ?action=TagAction&hashtag=$tag");
-        }
-
         //On rend le code HTML avec la fonction renderTouites
         return Action::renderTouites($touites, "") . $html;
     }
