@@ -27,8 +27,8 @@ class User
         $this->id_user = $id_user;
     }
 
-    //get magic method
     /**
+     * get magic method
      * @throws InvalidArgumentException
      */
     public function __get(string $at):string {
@@ -36,6 +36,10 @@ class User
         throw new InvalidArgumentException("$at: invalid property");
     }
 
+    /**
+     * Fonction qui permet de rendre un utilisateur en int
+     * @return int
+     */
     public function getIdUser(): int
     {
         return $this->id_user;
