@@ -14,9 +14,6 @@ class MurAction extends Action
     public function execute(): string
     {
 
-        //: Afficher une liste de touites en ordre chronologique inverse
-        //(les plus récents au début
-
         //On se connecte à la base de données
         $pdo = ConnectionFactory::makeConnection();
 
@@ -50,6 +47,7 @@ class MurAction extends Action
         $touites = $stmt->fetchAll();
 
         $html = "";
+
         //On parcourt les touites
         foreach ($touites as $touite) {
 
@@ -59,8 +57,11 @@ class MurAction extends Action
             //On décode le contenu
             $touite['contenu'] = htmlspecialchars_decode($touite['contenu']);
 
+            // On vérifie si l'utilisateur est connecté
             if(isset($_SESSION['user'])) {
                 $user = unserialize($_SESSION['user']);
+
+                // On vérifie si c'est l'auteur du touite à l'aide de l'id de l'utilisateur
                 if ($user->getIdUser() == $touite['id_user']) {
                     $htmlSupp = <<<HTML
                     <img id="poubelle" src="img/poubelle.png" alt="Boutton de suppression" >

@@ -3,7 +3,10 @@
 namespace touiteur\classes\Action;
 
 use touiteur\classes\ConnectionFactory;
-
+/**
+ * Class TouitesPersonneAction
+ * @package touiteur\classes\Action
+ */
 class TouitesPersonneAction extends Action
 {
 
@@ -13,10 +16,6 @@ class TouitesPersonneAction extends Action
      */
     public function execute(): string
     {
-
-        //: Afficher une liste de touites en ordre chronologique inverse
-        //(les plus récents au début
-
         //On se connecte à la base de données
         $pdo = ConnectionFactory::makeConnection();
 
@@ -29,22 +28,30 @@ class TouitesPersonneAction extends Action
         $stmt->execute();
         $touites = $stmt->fetchAll();
 
+        // On initialise la variable htmlSupp
         $htmlSupp = '';
 
+        // On vérifie si l'utilisateur est connecté
         if (isset($_SESSION['user'])) {
 
+            // On parcourt les touites
             foreach ($touites as $touite) {
+
+                // On récupère l'id de l'utilisateur
                 $user = unserialize($_SESSION['user']);
                 if ($user->getIdUser() == $touite['id_user']) {
+                    // On affiche le bouton de suppression
                     $htmlSupp = <<<HTML
                         <img id="poubelle" src="img/poubelle.png" alt="Boutton de suppression" >
                     HTML;
                 } else {
+                    // On n'affiche pas le bouton de suppression si l'utilisateur n'est pas l'auteur du touite ou si l'utilisateur n'est pas connecté
                     $htmlSupp = '';
                 }
             }
         }
 
+        // On retourne le code HTML
         return Action::renderTouites($touites, $htmlSupp);
 
     }

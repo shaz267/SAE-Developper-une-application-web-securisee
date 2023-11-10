@@ -1,10 +1,12 @@
+
+/*css du corps de la page*/
 body{
     margin: 3px;
     padding: 0;
     font-family: "Segoe UI" , sans-serif;
 }
 
-
+/*css du contenant des balises div*/
 .container{
     display: flex;
     border-bottom: black 3px solid;
@@ -13,12 +15,14 @@ body{
 
 }
 
+/*css de la balise div logo du site*/
 .logo{
     display: block;
     width: 15%;
     border-right: grey 1px solid;
 }
 
+/*css du titre du site*/
 .accueil{
     display: block;
     width: 70%;
@@ -27,6 +31,7 @@ body{
     font-family: Arial, Helvetica, sans-serif;
 }
 
+/*css de l'image de la loupe à côté de la barre de recherche*/
 .loupe{
     display: block;
     width: 4%;
@@ -34,22 +39,26 @@ body{
     padding-top: 1%;
 }
 
+/*css de la barre de recherche*/
 .recherche{
     display: block;
     padding-top: 2%;
 }
 
+/*css de l'image du logo*/
 .imageIndex {
     width: 100%;
     height: 100%;
 }
 
+/*css de la balise div contenant les touites*/
 .touites{
     display: flex;
     height: 70%;
     width: 100%;
 }
 
+/*css de la balise div contenant les touites avec une id index*/
 #index .touites{
     border-bottom: black 3px solid;
     transition: background-color 0.5s;
@@ -61,21 +70,25 @@ body{
     transition: background-color 0.5s;
 }
 
+/*css des liens à gauche*/
 .liens {
     display: block;
     width: 15%;
     font-family: Arial, Helvetica, sans-serif;
 }
 
+/*css du lien qui renvoie à une personne*/
 .lienPersonne {
     color: black;
 }
 
+/*css pour ajouter une police extérieur*/
 @font-face {
     font-family: "snoopy_reg-webfont";
     src: url("../../Police/snoopy_reg-webfont.otf");
 }
 
+/*css des liens de gauche*/
 #choix {
     position: sticky;
     top: 0;
@@ -161,7 +174,7 @@ body{
     width: 100%;
 }
 
-
+/*css des liens de pagination*/
 #pag{
     position: absolute;
     top: 700%;
@@ -176,7 +189,7 @@ body{
     margin-right: 5%;
 }
 
-
+/*css de l'image de la poubelle pour supprimer*/
 #poubelle{
     position: relative;
     left:95%;
@@ -184,6 +197,7 @@ body{
     height: 5%;
 }
 
+/*css du formulaire d'inscription*/
 .formulaireInsc {
     position: relative;
     border-left: grey 1px solid;
@@ -206,12 +220,14 @@ body{
     border-bottom: grey 1px solid;
 }
 
+/*css de la balise div contenant les touites*/
 .deffilementTouite {
     display: block;
     height: 100%;
     width: 70%;
 }
 
+/*css d'un touite */
 .touite{
     display: block;
     border-bottom: grey 1px solid;
@@ -222,6 +238,7 @@ body{
     padding: 1%;
 }
 
+/*css de l'image like*/
 #like{
     width: 9%;
     height: 19%;
@@ -241,6 +258,7 @@ body{
     height: 100%;
 }
 
+/*css de l'image dislike*/
 #dislike{
     width: 10%;
     height: 20%;
@@ -260,6 +278,7 @@ body{
     height: 100%;
 }
 
+/*css pour les exemples de commentaires en dessous des touites détaillés*/
 .Commentaire{
     display: block;
     width: 98%;
@@ -291,6 +310,7 @@ body{
     border-radius: 30px;
 }
 
+/*css du formulaire de connexion*/
 .formulaireAuth label {
     display: block;
     width: 150px;
@@ -315,6 +335,7 @@ body{
     border-bottom: grey 1px solid;
 }
 
+/*css du textarea pour publier*/
 .textPublier textarea {
     width: 100%;
     height: 100%;
@@ -322,11 +343,13 @@ body{
     resize: none;
 }
 
+/*css du formulaire d'image pour publier*/
 .formulaireImg{
     position: relative;
     font-family: "Comic Sans MS", cursive, sans-serif;
 }
 
+/*css de l'image de loupe de recherche*/
 .boutonrecherche{
     background-color: white;
     border: white;

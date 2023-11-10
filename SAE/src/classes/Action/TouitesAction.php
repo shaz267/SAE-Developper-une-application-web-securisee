@@ -34,17 +34,10 @@ class TouitesAction extends Action
         // On calcule le nombre de pages total
         $pages = ceil($total/ $parPage);
 
-
-        //On récupère les touites
-//        $sql = "SELECT t.id_touite, t.id_user,u.nom, u.prenom, t.contenu, t.date_pub FROM touite t
-//                INNER JOIN utilisateur u ON t.id_user = u.id_user
-//                ORDER BY t.date_pub DESC LIMIT 0, 5";
-//        $stmt = $pdo->prepare($sql);
-//        $stmt->execute();
-
         // Calcul du 1er article de la page
         $premier = ($currentPage * $parPage) - $parPage;
 
+        // On récupère les touites de la page actuelle
         $sql = "SELECT t.id_touite, t.id_user,u.nom, u.prenom, t.contenu, t.date_pub FROM touite t
                 INNER JOIN utilisateur u ON t.id_user = u.id_user
                 ORDER BY t.date_pub DESC LIMIT $premier, $parPage";
@@ -58,6 +51,10 @@ class TouitesAction extends Action
 
     }
 
+    /**
+     * Fonction qui permet de retourner le nombre de pages total
+     * @return float
+     */
     static function getPages(){
         $pdo = ConnectionFactory::makeConnection();
 
@@ -76,6 +73,10 @@ class TouitesAction extends Action
         return $pages;
     }
 
+    /**
+     * Fonction qui permet de retourner la page actuelle
+     * @return int
+     */
     static function getCurrentPage(){
         $currentPage = 1;
         // On détermine sur quelle page on se trouve
