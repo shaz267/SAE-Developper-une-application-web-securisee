@@ -27,6 +27,22 @@ class PublierAction extends Action
         else{
             $pdo = ConnectionFactory::makeConnection();
 
+            //Partie filtrage du contenu du touite et extraction des hashtags
+
+            //On filtre le contenu du touite
+            $_POST['touite'] = filter_var($_POST['touite'], FILTER_SANITIZE_STRING);
+
+            //On extrait les hashtags
+            $hashtags = [];
+            preg_match_all('/#[^ #]+/i', $_POST['touite'], $hashtags);
+
+            $contenu = $_POST['touite'];
+
+            //On transforme les hashtags en liens
+            foreach ($hashtags[0] as $key => $value) {
+                $contenu = str_replace($value, "<a href='?action=TagAction&hashtag=".substr($value, 1)."'>$value</a>", $contenu);
+            }
+
             //----------------Partie insertion du touite dans la base de données-------------------
             $user = unserialize($_SESSION['user']);
             $id_user = $user->getIdUser();
@@ -47,15 +63,6 @@ class PublierAction extends Action
 
 
             //----------------Partie insertion des hashtags dans la base de données-------------------
-
-            //On filtre le contenu du touite
-            $contenu = $_POST['touite'];
-            $contenu = filter_var($contenu, FILTER_SANITIZE_STRING);
-
-            //On extrait les hashtags
-
-            $hashtags = [];
-            preg_match_all('/#[^ #]+/i',$contenu, $hashtags);
 
             for($i = 0; $i < count($hashtags[0]); $i++){
                 $sql2 = "SELECT COALESCE(MAX(id_tag), 0) + 1 FROM TAG";
@@ -109,13 +116,6 @@ class PublierAction extends Action
                 }
 
             }
-
-            //On transforme les hashtags en liens
-            foreach ($hashtags[0] as $value) {
-                $_POST['touite'] = str_replace($value, "<a href='?action=TagAction&hashtag=".substr($value, 1)."'>$value</a>", $_POST['touite']);
-            }
-
-
 
             //On redirige vers l'accueil
             header("Location: ?action=MurAction");

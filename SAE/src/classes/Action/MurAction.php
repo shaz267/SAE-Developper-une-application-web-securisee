@@ -37,7 +37,7 @@ class MurAction extends Action
             $touite['contenu'] = utf8_encode($touite['contenu']);
 
             //On réduit le contenu pour l'afficher en version courte
-            $touite['contenu'] = substr($touite['contenu'], 0, 40) . ' ...';
+            $touite['contenu'] = Action::couperTexte($touite['contenu'], 40);
 
             if(isset($_SESSION['user'])) {
                 $user = unserialize($_SESSION['user']);
@@ -50,6 +50,8 @@ class MurAction extends Action
             }else
                 $htmlSupp = "";
 
+
+            //On ajoute le code HTML du touite
             $html .= <<<HTML
             <div class="touite" onclick="location.href='?action=TouiteDetailAction&touite_id={$touite['id_touite']}'">
                 <a class="lienPersonne" href="?action=TouitesPersonneAction&id={$touite['id_user']}"><h3>{$touite['nom']} {$touite['prenom']}</h3></a>
@@ -69,4 +71,5 @@ class MurAction extends Action
         return $html;
 
     }
+
 }

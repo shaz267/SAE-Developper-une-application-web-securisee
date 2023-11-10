@@ -7,6 +7,7 @@ use touiteur\classes\Action\AuthentificationAction;
 use touiteur\classes\Action\InscriptionAction;
 use touiteur\classes\Action\MurAction;
 use touiteur\classes\Action\PublierAction;
+use touiteur\classes\Action\TagAction;
 use touiteur\classes\Action\TouiteDetailAction;
 use touiteur\classes\Action\TouitesAction;
 use touiteur\classes\Action\TouitesPersonneAction;
@@ -59,6 +60,11 @@ class Dispatcher
                     $tA = new TouitesAction();
                     $html = $tA->execute();
                     $this->accueil = "TOUS LES TOUITES";
+                    break;
+                case 'TagAction' :
+                    $tA = new TagAction();
+                    $html = $tA->execute();
+                    $this->accueil = "TOUITES DU TAG";
                     break;
                 case 'EffacerTouiteAction' :
                     $eTA = new EffacerTouiteAction();

@@ -12,6 +12,8 @@ class EffacerTouiteAction extends Action
 
         $touiteId = $_GET['touite_id'];
 
+
+
         if (empty($touiteId)) {
             // Le touite_id est vide, on affiche un message d'erreur
             echo "L'identifiant du touite est vide.";
