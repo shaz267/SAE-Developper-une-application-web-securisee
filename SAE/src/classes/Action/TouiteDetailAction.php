@@ -35,11 +35,20 @@ class TouiteDetailAction extends Action
         }else
             $htmlSupp = "";
 
-
         $html =  $this->renderDetailTouites($touite, $htmlSupp);
 
         if(isset($_POST['boutonsuivre'])){
             $query = 'INSERT INTO SUIT (id_suiveur, id_suivi) VALUES (?, ?)';
+            $usersuiveur = unserialize($_SESSION['user'])->getIdUser();
+            $usersuivi = $touite['id_user'];
+            $st = $pdo->prepare($query);
+            $st->bindParam(1, $usersuiveur, PDO::PARAM_INT);
+            $st->bindParam(2, $usersuivi, PDO::PARAM_INT);
+            $st->execute();
+        }
+
+        if(isset($_POST['boutonnpsuivre'])){
+            $query = 'DELETE FROM SUIT WHERE id_suiveur = ? AND id_suivi = ?';
             $usersuiveur = unserialize($_SESSION['user'])->getIdUser();
             $usersuivi = $touite['id_user'];
             $st = $pdo->prepare($query);
@@ -61,6 +70,7 @@ class TouiteDetailAction extends Action
                         <a class="lienPersonne" href="?action=TouitesPersonneAction&id={$touite['id_user']}"><h3>{$touite['nom']} {$touite['prenom']}</h3></a>
                         <form method="post">
                         <input type="submit" name="boutonsuivre" value="Suivre" />
+                        <input type="submit" name="boutonnpsuivre" value="Ne plus Suivre" />
                         </form>
                         <p>{$touite['contenu']}</p>
                         <br>
