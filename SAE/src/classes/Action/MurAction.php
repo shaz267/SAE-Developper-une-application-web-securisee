@@ -20,38 +20,16 @@ class MurAction extends Action
         //On se connecte à la base de données
         $pdo = ConnectionFactory::makeConnection();
 
-        //on récupere l'user
-        $user = unserialize($_SESSION['user']);
-
-
-        //afficher les touites
-        //qui l’intéressent le plus. Il s’agit des touites des personnes que l’utilisateur suit ainsi que
-        //les touites mentionnant un tag auquel il est abonné
         //On récupère les touites
-        $sql = "SELECT DISTINCT t.id_touite, t.id_user, u.nom, u.prenom, t.contenu, t.date_pub
-                FROM touite t
+        $sql = "SELECT t.id_touite, t.id_user,u.nom, u.prenom, t.contenu, t.date_pub FROM touite t
                 INNER JOIN utilisateur u ON t.id_user = u.id_user
-                LEFT JOIN suit s ON s.id_suivi = t.id_user
-                LEFT JOIN suittag st ON st.id_tag IN (
-                    SELECT id_tag
-                    FROM suittag
-                    WHERE id_user = {$user->getIdUser()}
-                )
-                WHERE s.id_suiveur = {$user->getIdUser()} OR t.id_touite IN (
-                    SELECT tt.id_touite
-                    FROM touitetag tt
-                    WHERE tt.id_tag IN (
-                        SELECT id_tag
-                        FROM suittag
-                        WHERE id_user = {$user->getIdUser()}
-                    )
-                )
                 ORDER BY t.date_pub DESC";
         $stmt = $pdo->prepare($sql);
         $stmt->execute();
         $touites = $stmt->fetchAll();
 
         $html = "";
+        $htmlSup = "";
         //On parcourt les touites
         foreach ($touites as $touite) {
 

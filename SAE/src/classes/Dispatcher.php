@@ -36,6 +36,9 @@ class Dispatcher
         //Si l'utilisateur est connecté
         if (isset($_SESSION['user'])){
 
+            $user = unserialize($_SESSION['user']);
+            $nomPrenom = $user->prenom . " " . $user->nom;
+
             switch ($this->action) {
                 case 'TouiteDetailAction':
                     $tDA = new TouiteDetailAction();
@@ -54,7 +57,7 @@ class Dispatcher
                 case 'PublierAction' :
                     $pA = new PublierAction();
                     $html = $pA->execute();
-                    $this->accueil = "PUBLIER UN TOUITE";
+                    $this->accueil = "PUBLIER UN TOUITE - $nomPrenom";
                     break;
                 case 'TouitesAction' :
                     $tA = new TouitesAction();
@@ -69,14 +72,12 @@ class Dispatcher
                 case 'EffacerTouiteAction' :
                     $eTA = new EffacerTouiteAction();
                     $html = $eTA->execute();
-                    $this->accueil = "TOUS LES TOUITES";
                     break;
                 default:
                     $mA = new MurAction();
                     $html = $mA->execute();
-                    $this->accueil = "VOTRE MUR";
+                    $this->accueil = "VOTRE MUR - $nomPrenom";
                     break;
-
             }
 
             $html = <<<HTML
@@ -86,6 +87,7 @@ class Dispatcher
                          <li><a href="?action=MurAction">Votre Mur</a></li>
                          <li id="TousTouite"><a href="?action=TouitesAction">Tous Les Touites</a></li>
                          <li id="publier"><a href="?action=PublierAction">Publier</a></li>
+                         <li id="narcissique"><a href="?action=Narcissique">Page Pour Les Narcissiques</a></li>                         
                          <li id="deconnexion"><a href="?action=logout">Déconnexion</a></li>
                      </ul>
                  </div>
@@ -120,6 +122,11 @@ class Dispatcher
                     $aA = new AuthentificationAction();
                     $html = $aA->execute();
                     $this->accueil = "CONNEXION";
+                    break;
+                case 'TagAction' :
+                    $tA = new TagAction();
+                    $html = $tA->execute();
+                    $this->accueil = "TOUITES DU TAG";
                     break;
                 default:
 

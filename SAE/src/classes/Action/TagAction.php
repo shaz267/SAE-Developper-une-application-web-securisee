@@ -21,6 +21,8 @@ class TagAction extends Action
         $stmt = $pdo->prepare($sql);
         $stmt->execute();
         $touites = $stmt->fetchAll();
+
+        //On rend le code HTML avec la fonction renderTouites
         return Action::renderTouites($touites, "");
     }
 }
