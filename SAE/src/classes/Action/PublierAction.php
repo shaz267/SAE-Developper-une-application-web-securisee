@@ -31,20 +31,26 @@ class PublierAction extends Action
             $pdo = ConnectionFactory::makeConnection();
 
             //Partie filtrage du contenu du touite et extraction des hashtags
+            $contenu = htmlspecialchars($_POST['touite']);
 
             //On filtre le contenu du touite
-            $_POST['touite'] = filter_var($_POST['touite'], FILTER_SANITIZE_STRING);
+            $contenu = filter_var($contenu, FILTER_SANITIZE_STRING);
+
+
 
             //On extrait les hashtags
             $hashtags = [];
             preg_match_all('/#[^ #]+/i', $_POST['touite'], $hashtags);
 
-            $contenu = $_POST['touite'];
+
+
 
             //On transforme les hashtags en liens
             foreach ($hashtags[0] as $key => $value) {
                 $contenu = str_replace($value, "<a href='?action=TagAction&hashtag=".substr($value, 1)."'>$value</a>", $contenu);
             }
+
+
 
             //----------------Partie insertion du touite dans la base de données-------------------
             $user = unserialize($_SESSION['user']);

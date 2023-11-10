@@ -37,6 +37,7 @@ class TouiteDetailAction extends Action
         $html =  $this->renderDetailTouites($touite, $htmlSupp);
 
         if(isset($_POST['boutonsuivre'])){
+
             // Vérifier que l'utilisateur connecté ne suit pas déjà l'utilisateur du touite
             $query = 'SELECT * FROM SUIT WHERE id_suiveur = ? AND id_suivi = ?';
             $usersuiveur = unserialize($_SESSION['user'])->getIdUser();
@@ -46,6 +47,7 @@ class TouiteDetailAction extends Action
             $st->bindParam(2, $usersuivi, PDO::PARAM_INT);
             $st->execute();
             $result = $st->fetchAll();
+
             if($st->rowCount() != 0){
                 $html .= "<script>alert('Vous suivez déjà cet utilisateur.');</script>";
             }
@@ -68,6 +70,7 @@ class TouiteDetailAction extends Action
         }
 
         if(isset($_POST['boutonnpsuivre'])){
+
             $query = 'DELETE FROM SUIT WHERE id_suiveur = ? AND id_suivi = ?';
             $usersuiveur = unserialize($_SESSION['user'])->getIdUser();
             $usersuivi = $touite['id_user'];
@@ -77,17 +80,15 @@ class TouiteDetailAction extends Action
             $st->execute();
             $html.= "<script>alert('Vous ne suivez plus cet utilisateur.');</script>";
         }
+
+
         return $html;
     }
 
     private function renderDetailTouites($touite, $htmlSupp): string
     {
 
-        //On convertit le contenu en UTF-8
-        $touite['contenu'] = utf8_encode($touite['contenu']);
-
-
-        if ($this->cheminImage($touite) !== null) {
+        if ($this->cheminImage($touite) != null) {
             $cheminImage = $this->cheminImage($touite);
 
 

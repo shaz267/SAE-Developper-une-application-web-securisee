@@ -24,26 +24,39 @@ class NarcissiqueAction extends Action
         $stmt->execute();
         $users = $stmt->fetchAll();
 
+        $htmlUsers = "";
+
+        foreach($users as $u){
+
+            $htmlUsers .= <<<HTML
+                <li><a href="?action=TouitesPersonneAction&id={$u['id_user']}">{$u['prenom']} {$u['nom']}</a></li>
+            HTML;
+        }
 
 
         //On récupère le score moyen des touites de l'utilisateur connecté
-        $sql = "SELECT AVG(score) as score FROM touite WHERE id_user = {$user->getIdUser()}";
+        $sql = "SELECT AVG(note) as scoreMoyen FROM notation WHERE id_user = {$user->getIdUser()}";
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute();
+        $scoreMoyen = $stmt->fetch();
 
-        $html = "";
+        $htmlScoreMoyen = "";
 
-        foreach($users as $u){
-            $html .= <<<HTML
-                <li><a href="?action=TouitesPersonneAction&id={$u['id_user']}">{$u['prenom']} {$u['nom']}</a></li>
-            HTML;
-
+        if($scoreMoyen['scoreMoyen'] == null){
+            $htmlScoreMoyen = "Vous n'avez pas de notes pour vos touites";
+        }else{
+            $htmlScoreMoyen = "Votre score moyen est de {$scoreMoyen['scoreMoyen']}";
         }
 
 
         //On retourne les nom des utilisateurs qui suivent l'utilisateur connecté
         return <<<HTML
-        <h1>Utilisateurs qui suivent {$user->prenom} {$user->nom}</h1>
+        <h2>Utilisateurs qui suivent {$user->prenom} {$user->nom}</h2>
         <ul>
-            {$html}
+            {$htmlUsers}
+        </ul>
+        <h2>Score moyen de vos touites</h2>
+        <p>{$htmlScoreMoyen}</p>
         HTML;
 
 

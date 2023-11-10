@@ -79,7 +79,7 @@ class Dispatcher
                 case 'NarcissiqueAction' :
                     $nA = new NarcissiqueAction();
                     $html = $nA->execute();
-                    $this->accueil = "PAGE NARCISSIQUE DE $nomPrenom";
+                    $this->accueil = "Infos De Votre Compte - $nomPrenom";
                     break;
                 default:
                     $mA = new MurAction();
@@ -95,7 +95,7 @@ class Dispatcher
                          <li><a href="?action=MurAction">Votre Mur</a></li>
                          <li id="TousTouite"><a href="?action=TouitesAction">Tous Les Touites</a></li>
                          <li id="publier"><a href="?action=PublierAction">Publier</a></li>
-                         <li id="narcissique"><a href="?action=NarcissiqueAction">Narcissiques Par Ici</a></li>                         
+                         <li id="narcissique"><a href="?action=NarcissiqueAction">Infos Du Compte</a></li>                         
                          <li id="deconnexion"><a href="?action=logout">Déconnexion</a></li>
                      </ul>
                  </div>

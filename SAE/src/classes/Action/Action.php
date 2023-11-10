@@ -15,14 +15,12 @@ abstract class Action
     public static function renderTouites(array $touites, $htmlSupp): string
     {
 
-
-
         $html = "";
         //On parcourt les touites
         foreach ($touites as $touite) {
 
-            //On convertit le contenu en UTF-8
-            $touite['contenu'] = utf8_encode($touite['contenu']);
+            //On decode le contenu
+            $touite['contenu'] = htmlspecialchars_decode($touite['contenu']);
 
             //On réduit le contenu pour l'afficher en version courte
             $touite['contenu'] = self::couperTexte($touite['contenu'], 40);
@@ -47,6 +45,12 @@ abstract class Action
     }
 
 
+    /**
+     *  Fonction qui permet de couper un texte à une longueur maximale en ignorant la partie balise HTML <a c'est à dire en ne coupant pas au milieu d'un lien
+     * @param $texte
+     * @param $longueurMax
+     * @return mixed|string
+     */
     static function couperTexte($texte, $longueurMax) {
         // Vérifie si la longueur du texte est inférieure à la longueur maximale
         if (strlen($texte) <= $longueurMax) {

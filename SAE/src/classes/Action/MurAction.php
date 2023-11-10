@@ -20,9 +20,30 @@ class MurAction extends Action
         //On se connecte à la base de données
         $pdo = ConnectionFactory::makeConnection();
 
-        //On récupère les touites
-        $sql = "SELECT t.id_touite, t.id_user,u.nom, u.prenom, t.contenu, t.date_pub FROM touite t
+        //on récupere l'user
+        $user = unserialize($_SESSION['user']);
+
+        //afficher les touites
+        //qui l’intéressent le plus. Il s’agit des touites des personnes que l’utilisateur suit ainsi que
+        //les touites mentionnant un tag auquel il est abonné
+        $sql = "SELECT DISTINCT t.id_touite, t.id_user, u.nom, u.prenom, t.contenu, t.date_pub
+                FROM touite t
                 INNER JOIN utilisateur u ON t.id_user = u.id_user
+                LEFT JOIN suit s ON s.id_suivi = t.id_user
+                LEFT JOIN suittag st ON st.id_tag IN (
+                    SELECT id_tag
+                    FROM suittag
+                    WHERE id_user = {$user->getIdUser()}
+                )
+                WHERE s.id_suiveur = {$user->getIdUser()} OR t.id_touite IN (
+                    SELECT tt.id_touite
+                    FROM touitetag tt
+                    WHERE tt.id_tag IN (
+                        SELECT id_tag
+                        FROM suittag
+                        WHERE id_user = {$user->getIdUser()}
+                    )
+                )
                 ORDER BY t.date_pub DESC";
         $stmt = $pdo->prepare($sql);
         $stmt->execute();
@@ -33,11 +54,11 @@ class MurAction extends Action
         //On parcourt les touites
         foreach ($touites as $touite) {
 
-            //On convertit le contenu en UTF-8
-            $touite['contenu'] = utf8_encode($touite['contenu']);
-
             //On réduit le contenu pour l'afficher en version courte
             $touite['contenu'] = Action::couperTexte($touite['contenu'], 40);
+
+            //On décode le contenu
+            $touite['contenu'] = htmlspecialchars_decode($touite['contenu']);
 
             if(isset($_SESSION['user'])) {
                 $user = unserialize($_SESSION['user']);
