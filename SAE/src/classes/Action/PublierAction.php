@@ -47,50 +47,76 @@ class PublierAction extends Action
             $user = unserialize($_SESSION['user']);
             $id_user = $user->getIdUser();
 
+            $sql1 = "SELECT MAX(id_touite)+1 AS max FROM TOUITE";
+            $stmt1 = $pdo->prepare($sql1);
+            $stmt1->execute();
+            $maxId = $stmt1->fetch(\PDO::FETCH_ASSOC);
 
-            $sql = "INSERT INTO touite (id_user, contenu, date_pub) VALUES (:id_user, :contenu, NOW())";
-            $stmt = $pdo->prepare($sql);
-            $stmt->bindParam(':id_user', $id_user);
-            $stmt->bindParam(':contenu', $contenu);
-            $stmt->execute();
+            $sql2 = "INSERT INTO TOUITE VALUES (:id_touite,:id_user, :contenu, NOW())";
+            $stmt2 = $pdo->prepare($sql2);
+            $stmt2->bindParam(':id_touite',$maxId['max']);
+            $stmt2->bindParam(':id_user', $id_user);
+            $stmt2->bindParam(':contenu', $contenu);
+            $stmt2->execute();
+            $stmt2->closeCursor();
 
 
 
             //----------------Partie insertion des hashtags dans la base de données-------------------
 
+            for($i = 0; $i < count($hashtags[0]); $i++){
+                $sql2 = "SELECT COALESCE(MAX(id_tag), 0) + 1 FROM TAG";
+                $stmt2 = $pdo->prepare($sql2);
+                $stmt2->execute();
+                $maxTag = $stmt2->fetchColumn();
+                $stmt2->closeCursor();
 
-            //On récupère l' id_touite  pour l'insérer dans touitetag
-            $sql = "SELECT MAX(id_touite) FROM touite";
-            $stmt = $pdo->prepare($sql);
-            $stmt->execute();
-            $id_touite = $stmt->fetch();
+                $sql3 = "SELECT COUNT(*) FROM TAG WHERE libelle_tag = :tag";
+                $stmt3 = $pdo->prepare($sql3);
+                $stmt3->bindParam(':tag', $hashtags[0][$i]);
+                $stmt3->execute();
+                $nbligne = $stmt3->fetchColumn();
+                $stmt3->closeCursor();
 
-            //Pour chaque hashtag
-            foreach ($hashtags[0] as $key => $value) {
+                if($nbligne === 0){
+                    $sqlTag = "INSERT INTO TAG VALUES (?,?,'')";
+                    $stmtTag = $pdo->prepare($sqlTag);
+                    $stmtTag->bindParam(1, $maxTag);
+                    $stmtTag->bindParam(2, $hashtags[0][$i]);
+                    $stmtTag->execute();
+                    $stmtTag->closeCursor();
 
-                //On enlève le #
-                $value = substr($value, 1);
+                    $sqlId = "SELECT id_tag FROM TAG WHERE libelle_tag = ?";
+                    $stmtId = $pdo->prepare($sqlId);
+                    $stmtId->bindParam(1, $hashtags[0][$i]);
+                    $stmtId->execute();
+                    $tag = $stmtId->fetchColumn();
+                    $stmtId->closeCursor();
 
-                //On envoie les hashtags dans la base de données
-                $sql = "INSERT INTO tag (libelle_tag, description_tag) VALUES (:hashtag, '')";
-                $stmt = $pdo->prepare($sql);
-                $stmt->bindParam(':hashtag', $value);
-                $stmt->execute();
+                    $sqlTouiteTag = "INSERT INTO TOUITETAG VALUES (:touite,:idtag)";
+                    $stmtTouiteTag = $pdo->prepare($sqlTouiteTag);
+                    $stmtTouiteTag->bindParam(':touite',$maxId['max']);
+                    $stmtTouiteTag->bindParam(':idtag',$tag);
+                    $stmtTouiteTag->execute();
+                    $stmtTouiteTag->closeCursor();
+                } else {
+                    $sqlId2 = "SELECT id_tag FROM TAG WHERE libelle_tag = ?";
+                    $stmtId2 = $pdo->prepare($sqlId2);
+                    $stmtId2->bindParam(1, $hashtags[0][$i]);
+                    $stmtId2->execute();
+                    $tag2 = $stmtId2->fetchColumn();
+                    $stmtId2->closeCursor();
 
-                //On récupere l'id du tag
-                $sql = "SELECT id_tag FROM tag WHERE libelle_tag = :hashtag ORDER BY id_tag DESC LIMIT 1";
-                $stmt = $pdo->prepare($sql);
-                $stmt->bindParam(':hashtag', $value);
-                $stmt->execute();
-                $id_tag = $stmt->fetch();
-
-
-                //On insere dans touitetag l'id du touite et du tag
-                $sql = "INSERT INTO touitetag (id_touite, id_tag) VALUES ({$id_touite[0]}, {$id_tag[0]})";
-                $inser = $pdo->exec($sql);
-
+                    $sqlTouiteTag2 = "INSERT INTO TOUITETAG VALUES (:touite,:idtag)";
+                    $stmtTouiteTag2 = $pdo->prepare($sqlTouiteTag2);
+                    $stmtTouiteTag2->bindParam(':touite',$maxId['max']);
+                    $stmtTouiteTag2->bindParam(':idtag',$tag2);
+                    $stmtTouiteTag2->execute();
+                    $stmtTouiteTag2->closeCursor();
+                }
 
             }
+
             //On redirige vers l'accueil
             header("Location: ?action=MurAction");
 

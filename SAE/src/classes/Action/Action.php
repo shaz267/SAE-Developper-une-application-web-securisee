@@ -47,6 +47,12 @@ abstract class Action
     }
 
 
+    /**
+     * Fonction qui permet de couper Un texte en prenant en compte la balise <a>
+     * @param $texte Le texte à couper
+     * @param $longueurMax la longueur maximale du texte
+     * @return mixed|string
+     */
     static function couperTexte($texte, $longueurMax) {
         // Vérifie si la longueur du texte est inférieure à la longueur maximale
         if (strlen($texte) <= $longueurMax) {
