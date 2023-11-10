@@ -141,14 +141,22 @@ body{
 
 #choix #publier{
     position: absolute;
-    top: 450%;
+    top: 500%;
+    left: 0;
+    width: 100%;
+}
+
+#choix #narcissique{
+
+    position: absolute;
+    top: 300%;
     left: 0;
     width: 100%;
 }
 
 #choix #deconnexion{
     position: absolute;
-    top: 500%;
+    top: 600%;
     left: 0;
     width: 100%;
 }
