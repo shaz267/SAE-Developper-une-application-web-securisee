@@ -66,7 +66,7 @@ class PublierAction extends Action
             $id_touite = $stmt->fetch();
 
             //Pour chaque hashtag
-            foreach ($hashtags[0] as $key => $value) {
+            foreach ($hashtags[0] as $value) {
 
                 //On enlève le #
                 $value = substr($value, 1);
