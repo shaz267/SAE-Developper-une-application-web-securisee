@@ -9,6 +9,8 @@ use touiteur\classes\User;
 class TouiteDetailAction extends Action
 {
 
+    private $htmlSuivre = "";
+
     public function execute(): string
     {
         $touiteId = $_GET['touite_id'];
@@ -24,14 +26,32 @@ class TouiteDetailAction extends Action
 
         if(isset($_SESSION['user'])) {
             $user = unserialize($_SESSION['user']);
+            $htmlPoubelle = "";
             if ($user->getIdUser() == $touite['id_user']) {
-                $htmlSupp = <<<HTML
+                $htmlPoubelle = <<<HTML
                     <img id="poubelle" src="img/poubelle.png" alt="Boutton de suppression" >
                 HTML;
-            }else
-                $htmlSupp = "";
-        }else
+            }
+
+                $htmlSupp = <<<HTML
+                       <a href="?action=TouiteDetailAction&touite_id={$touite['id_touite']}&note=1"> <img id="like" src="img/like.png" alt="Boutton de like"></a>
+                        <a href="?action=TouiteDetailAction&touite_id={$touite['id_touite']}&note=-1"><img id="dislike" src="img/dislike.png" alt="Boutton de dislike"></a>
+                        <div class="supprimer" onclick="event.stopPropagation(); if (confirm('Voulez-vous vraiment supprimer ce tweet ?')) { location.href='?action=EffacerTouiteAction&touite_id={$touite['id_touite']}' }">
+                            $htmlPoubelle
+                        </div>
+                HTML;
+
+            $this->htmlSuivre = <<<HTML
+                    <input type="submit" name="boutonsuivre" value="Suivre" />
+                    <input type="submit" name="boutonnpsuivre" value="Ne plus Suivre" />
+            HTML;
+
+        }
+        else{
+
             $htmlSupp = "";
+        }
+
 
         $html =  $this->renderDetailTouites($touite, $htmlSupp);
 
@@ -80,7 +100,7 @@ class TouiteDetailAction extends Action
             $html.= "<script>alert('Vous ne suivez plus cet utilisateur.');</script>";
         }
 
-        if(isset($_GET['note'])){
+        if(isset($_GET['note']) && isset($_SESSION['user'])){
             $note = $_GET['note'];
 
             //On vérifie pour éviter les risques d'injection SQL
@@ -99,7 +119,7 @@ class TouiteDetailAction extends Action
             $rep = $st->execute();
 
             //Si le touite est déjà noté par l'utilisateur, on met à jour la note
-            if ($rep == false) {
+            if (!$rep) {
                 $query = 'UPDATE NOTATION SET note = ? WHERE id_user = ? AND id_touite = ?';
                 $st = $pdo->prepare($query);
                 $st->bindParam(1, $note, PDO::PARAM_INT);
@@ -134,8 +154,7 @@ class TouiteDetailAction extends Action
                     <div class="touite" id="Detail">
                         <a class="lienPersonne" href="?action=TouitesPersonneAction&id={$touite['id_user']}"><h3>{$touite['nom']} {$touite['prenom']}</h3></a>
                         <form method="post">
-                        <input type="submit" name="boutonsuivre" value="Suivre" />
-                        <input type="submit" name="boutonnpsuivre" value="Ne plus Suivre" />
+                        $this->htmlSuivre
                         </form>
                         <p>{$touite['contenu']}</p>
                         <br>
@@ -143,11 +162,7 @@ class TouiteDetailAction extends Action
                         <br>
                         <p>Date du post : {$touite['date_pub']}</p>
                         <br>
-                        <a href="?action=TouiteDetailAction&touite_id={$touite['id_touite']}&note=1"> <img id="like" src="img/like.png" alt="Boutton de like"></a>
-                        <a href="?action=TouiteDetailAction&touite_id={$touite['id_touite']}&note=-1"><img id="dislike" src="img/dislike.png" alt="Boutton de dislike"></a>
-                        <div class="supprimer" onclick="event.stopPropagation(); if (confirm('Voulez-vous vraiment supprimer ce tweet ?')) { location.href='?action=EffacerTouiteAction&touite_id={$touite['id_touite']}' }">
-                            $htmlSupp
-                        </div>
+                         $htmlSupp
                     </div>
                     <div class="Commentaire">
                         <h2>Commentaires</h2>
