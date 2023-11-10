@@ -6,6 +6,7 @@ namespace touiteur\classes;
 use touiteur\classes\Action\AuthentificationAction;
 use touiteur\classes\Action\InscriptionAction;
 use touiteur\classes\Action\MurAction;
+use touiteur\classes\Action\NarcissiqueAction;
 use touiteur\classes\Action\PublierAction;
 use touiteur\classes\Action\TagAction;
 use touiteur\classes\Action\TouiteDetailAction;
@@ -73,6 +74,11 @@ class Dispatcher
                     $eTA = new EffacerTouiteAction();
                     $html = $eTA->execute();
                     break;
+                case 'NarcissiqueAction' :
+                    $nA = new NarcissiqueAction();
+                    $html = $nA->execute();
+                    $this->accueil = "PAGE NARCISSIQUE DE $nomPrenom";
+                    break;
                 default:
                     $mA = new MurAction();
                     $html = $mA->execute();
@@ -87,7 +93,7 @@ class Dispatcher
                          <li><a href="?action=MurAction">Votre Mur</a></li>
                          <li id="TousTouite"><a href="?action=TouitesAction">Tous Les Touites</a></li>
                          <li id="publier"><a href="?action=PublierAction">Publier</a></li>
-                         <li id="narcissique"><a href="?action=Narcissique">Narcissiques Par Ici</a></li>                         
+                         <li id="narcissique"><a href="?action=NarcissiqueAction">Narcissiques Par Ici</a></li>                         
                          <li id="deconnexion"><a href="?action=logout">Déconnexion</a></li>
                      </ul>
                  </div>
