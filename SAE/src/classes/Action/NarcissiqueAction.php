@@ -35,7 +35,7 @@ class NarcissiqueAction extends Action
 
 
         //On récupère le score moyen des touites de l'utilisateur connecté
-        $sql = "SELECT ROUND(AVG(note)) as scoreMoyen FROM notation WHERE id_user = {$user->getIdUser()}";
+        $sql = "SELECT ROUND(AVG(note), 2) as scoreMoyen FROM notation WHERE id_user = {$user->getIdUser()}";
         $stmt = $pdo->prepare($sql);
         $stmt->execute();
         $scoreMoyen = $stmt->fetch();

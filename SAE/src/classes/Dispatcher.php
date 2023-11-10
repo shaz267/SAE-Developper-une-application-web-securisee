@@ -17,20 +17,32 @@ use touiteur\classes\Action\EffacerTouiteAction;
 class Dispatcher
 {
 
+    /**
+     * @var string Le tag du bouton
+     */
     public $buttonTag = "";
+
+    /**
+     * @var string Le nom de du titre de la page
+     */
     private $accueil = "Accueil";
 
+
+    /**
+     * @var string L'action à effectuer
+     */
     private $action;
 
+    /**
+     * Dispatcher constructor. On récupère l'action à effectuer dans l'URL
+     */
     public function __construct()
     {
+        //Si l'action est définie dans l'URL
         if (isset($_GET["action"]))
             $this->action = $_GET["action"];
-        else
+        else //Sinon on met l'action à vide et ce serra donc l'action par défaut qui sera exécutée
             $this->action = "";
-
-        //On filtre l'action pour éviter les injections
-        $this->action = filter_var($this->action);
     }
 
     public function run()
