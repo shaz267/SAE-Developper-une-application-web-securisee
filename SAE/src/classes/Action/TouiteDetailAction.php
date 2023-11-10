@@ -82,14 +82,34 @@ class TouiteDetailAction extends Action
 
         if(isset($_GET['note'])){
             $note = $_GET['note'];
+
+            //On vérifie pour éviter les risques d'injection SQL
+            if ($note > 0) {
+                $note = 1;
+            } elseif ($note < 0) {
+                $note = -1;
+            }
+
             $query = 'INSERT INTO NOTATION (id_user, id_touite, note) VALUES (?, ?, ?)';
             $user = unserialize($_SESSION['user'])->getIdUser();
             $st = $pdo->prepare($query);
-            $st->bindParam(1, $usersuiveur, PDO::PARAM_INT);
+            $st->bindParam(1, $user, PDO::PARAM_INT);
             $st->bindParam(2, $touiteId, PDO::PARAM_INT);
             $st->bindParam(3, $note, PDO::PARAM_INT);
-            $st->execute();
-            $html.= "<script>alert('Vous avez noté ce touite.');</script>";
+            $rep = $st->execute();
+
+            //Si le touite est déjà noté par l'utilisateur, on met à jour la note
+            if ($rep == false) {
+                $query = 'UPDATE NOTATION SET note = ? WHERE id_user = ? AND id_touite = ?';
+                $st = $pdo->prepare($query);
+                $st->bindParam(1, $note, PDO::PARAM_INT);
+                $st->bindParam(2, $user, PDO::PARAM_INT);
+                $st->bindParam(3, $touiteId, PDO::PARAM_INT);
+                $st->execute();
+            }
+
+            //On redirige l'utilisateur vers le détail du touite
+            header("Location: ?action=TouiteDetailAction&touite_id={$touite['id_touite']}");
         }
 
 
@@ -124,7 +144,7 @@ class TouiteDetailAction extends Action
                         <p>Date du post : {$touite['date_pub']}</p>
                         <br>
                         <a href="?action=TouiteDetailAction&touite_id={$touite['id_touite']}&note=1"> <img id="like" src="img/like.png" alt="Boutton de like"></a>
-                        <a href="?action=TouiteDetailAction&touite_id={$touite['id_touite']}$note=-1"><img id="dislike" src="img/dislike.png" alt="Boutton de dislike"></a>
+                        <a href="?action=TouiteDetailAction&touite_id={$touite['id_touite']}&note=-1"><img id="dislike" src="img/dislike.png" alt="Boutton de dislike"></a>
                         <div class="supprimer" onclick="event.stopPropagation(); if (confirm('Voulez-vous vraiment supprimer ce tweet ?')) { location.href='?action=EffacerTouiteAction&touite_id={$touite['id_touite']}' }">
                             $htmlSupp
                         </div>
