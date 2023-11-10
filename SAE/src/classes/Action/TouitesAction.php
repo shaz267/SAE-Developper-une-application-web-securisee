@@ -47,6 +47,7 @@ class TouitesAction extends Action
 
         $htmlSupp = '';
 
+        //On appelle la fonction renderTouites pour afficher les touites
         return Action::renderTouites($touite, $htmlSupp);
 
     }

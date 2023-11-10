@@ -39,6 +39,7 @@ class TouitesPersonneAction extends Action
 
                 // On récupère l'id de l'utilisateur
                 $user = unserialize($_SESSION['user']);
+                //Si l'utilisateur connecté est l'auteur de la touite
                 if ($user->getIdUser() == $touite['id_user']) {
                     // On affiche le bouton de suppression
                     $htmlSupp = <<<HTML

@@ -35,6 +35,7 @@ class TagAction extends Action
             $result = $st->fetch();
             $idtag = $result['id_tag'];
 
+            // On fais une requête pour insérer le tag dans la table suittag
             try{
                 $query2 = 'INSERT INTO SUITTAG (id_user, id_tag) VALUES (?, ?)';
                 $usersuiveur = unserialize($_SESSION['user'])->getIdUser();
