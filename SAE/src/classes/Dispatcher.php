@@ -17,6 +17,7 @@ use touiteur\classes\Action\EffacerTouiteAction;
 class Dispatcher
 {
 
+    public $buttonTag = "";
     private $accueil = "Accueil";
 
     private $action;
@@ -69,6 +70,7 @@ class Dispatcher
                     $tA = new TagAction();
                     $html = $tA->execute();
                     $this->accueil = "TOUITES DU TAG";
+                    $this->buttonTag = TagAction::insererBoutonSuivreTag();
                     break;
                 case 'EffacerTouiteAction' :
                     $eTA = new EffacerTouiteAction();
@@ -184,6 +186,7 @@ class Dispatcher
                             </a>
                         </div>
                         <div class='accueil'><h1>{$this->accueil}</h1>
+                        {$this->buttonTag}
                         </div>
                         <div class="loupe">
                             <img class="imageIndex" src="img/loupe.png" alt="Recherche"/>
