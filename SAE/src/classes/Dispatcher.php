@@ -214,8 +214,6 @@ class Dispatcher
                 </html>
                 
             HTML;
-        var_dump($_POST);
-
     }
 
 }
