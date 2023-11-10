@@ -50,14 +50,20 @@ class TouiteDetailAction extends Action
                 $html .= "<script>alert('Vous suivez déjà cet utilisateur.');</script>";
             }
             else{
-                $query = 'INSERT INTO SUIT (id_suiveur, id_suivi) VALUES (?, ?)';
-                $usersuiveur = unserialize($_SESSION['user'])->getIdUser();
-                $usersuivi = $touite['id_user'];
-                $st = $pdo->prepare($query);
-                $st->bindParam(1, $usersuiveur, PDO::PARAM_INT);
-                $st->bindParam(2, $usersuivi, PDO::PARAM_INT);
-                $st->execute();
-                $html .= "<script>alert('Vous suivez cet utilisateur.');</script>";
+                // Gérer le fait qu'on ne puisse pas se suivre soi-même
+                if($usersuiveur == $usersuivi){
+                    $html .= "<script>alert('Vous ne pouvez pas vous suivre vous-même.');</script>";
+                }
+                else {
+                    $query = 'INSERT INTO SUIT (id_suiveur, id_suivi) VALUES (?, ?)';
+                    $usersuiveur = unserialize($_SESSION['user'])->getIdUser();
+                    $usersuivi = $touite['id_user'];
+                    $st = $pdo->prepare($query);
+                    $st->bindParam(1, $usersuiveur, PDO::PARAM_INT);
+                    $st->bindParam(2, $usersuivi, PDO::PARAM_INT);
+                    $st->execute();
+                    $html .= "<script>alert('Vous suivez cet utilisateur.');</script>";
+                }
             }
         }
 
