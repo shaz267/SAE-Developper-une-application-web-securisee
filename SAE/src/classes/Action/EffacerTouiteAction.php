@@ -33,14 +33,33 @@ class EffacerTouiteAction extends Action
                     $stmt = $pdo->prepare($sql);
                     $stmt->bindParam(1,$tag['id_tag'],PDO::PARAM_INT);
                     $stmt->execute();
+                    $stmt->closeCursor();
                 }
             } else {
-                // On exécute la requête SQL
-                $sql = "DELETE FROM touite WHERE id_touite = ?";
+                $sql = "SELECT id_image from touiteimage where id_touite = ?";
                 $stmt = $pdo->prepare($sql);
                 $stmt->bindParam(1, $touiteId, PDO::PARAM_INT);
                 $stmt->execute();
+                $touite = $stmt->fetchAll();
+                if ($stmt->rowCount() != 0) {
+                    foreach ($touite as $image) {
+                        $sql = "DELETE FROM touiteimage WHERE id_image = ?";
+                        $stmt = $pdo->prepare($sql);
+                        $stmt->bindParam(1, $image['id_image'], PDO::PARAM_INT);
+                        $stmt->execute();
+                        $stmt->closeCursor();
+                    }
+                } else {
+                    // On exécute la requête SQL
+                    $sql = "DELETE FROM touite WHERE id_touite = ?";
+                    $stmt = $pdo->prepare($sql);
+                    $stmt->bindParam(1, $touiteId, PDO::PARAM_INT);
+                    $stmt->execute();
+                    $stmt->closeCursor();
+                }
             }
+
+
             // On redirige l'utilisateur vers la page d'accueil
             header("Location: ?action=MurAction");
         }

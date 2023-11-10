@@ -23,7 +23,6 @@ class TouiteDetailAction extends Action
         $stmt->execute();
         $touite = $stmt->fetch();
 
-
         if(isset($_SESSION['user'])) {
             $user = unserialize($_SESSION['user']);
             if ($user->getIdUser() == $touite['id_user']) {
@@ -81,6 +80,18 @@ class TouiteDetailAction extends Action
         //On convertit le contenu en UTF-8
         $touite['contenu'] = utf8_encode($touite['contenu']);
 
+
+        if ($this->cheminImage($touite) !== null) {
+            $cheminImage = $this->cheminImage($touite);
+
+
+            $image = <<<HTML
+                <img src="{$cheminImage}" alt="Image du touite" width="200" height="200">
+            HTML;
+        } else {
+            $image = '';
+        }
+
         return <<<HTML
                     <div class="touite" id="Detail">
                         <a class="lienPersonne" href="?action=TouitesPersonneAction&id={$touite['id_user']}"><h3>{$touite['nom']} {$touite['prenom']}</h3></a>
@@ -89,6 +100,8 @@ class TouiteDetailAction extends Action
                         <input type="submit" name="boutonnpsuivre" value="Ne plus Suivre" />
                         </form>
                         <p>{$touite['contenu']}</p>
+                        <br>
+                        <p>{$image}</p>
                         <br>
                         <p>Date du post : {$touite['date_pub']}</p>
                         <br>
@@ -134,5 +147,22 @@ class TouiteDetailAction extends Action
                             scelerisque mi at dolor dapibus aliquet.</p>
                     </div>
             HTML;
+    }
+
+    private function cheminImage($touite): string{
+        $pdo = ConnectionFactory::makeConnection();
+        $sql = "SELECT image.chemin_fichier FROM image 
+            INNER JOIN touiteimage On touiteimage.id_image = image.id_image
+            WHERE id_touite = {$touite['id_touite']}";
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute();
+        $cheminImage = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        if (isset($cheminImage['chemin_fichier'])) {
+            // La requête a retourné des résultats, on peut les utiliser
+            return $cheminImage['chemin_fichier'];
+        } else {
+            return '';
+        }
     }
 }
