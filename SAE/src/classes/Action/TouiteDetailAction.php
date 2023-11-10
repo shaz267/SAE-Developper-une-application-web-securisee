@@ -47,7 +47,7 @@ class TouiteDetailAction extends Action
             $st->execute();
             $result = $st->fetchAll();
             if($st->rowCount() != 0){
-                echo "<script>alert('Vous suivez déjà cet utilisateur.');</script>";
+                $html .= "<script>alert('Vous suivez déjà cet utilisateur.');</script>";
             }
             else{
                 $query = 'INSERT INTO SUIT (id_suiveur, id_suivi) VALUES (?, ?)';
@@ -57,7 +57,7 @@ class TouiteDetailAction extends Action
                 $st->bindParam(1, $usersuiveur, PDO::PARAM_INT);
                 $st->bindParam(2, $usersuivi, PDO::PARAM_INT);
                 $st->execute();
-                echo "<script>alert('Vous suivez cet utilisateur.');</script>";
+                $html .= "<script>alert('Vous suivez cet utilisateur.');</script>";
             }
         }
 
@@ -69,7 +69,7 @@ class TouiteDetailAction extends Action
             $st->bindParam(1, $usersuiveur, PDO::PARAM_INT);
             $st->bindParam(2, $usersuivi, PDO::PARAM_INT);
             $st->execute();
-            echo "<script>alert('Vous ne suivez plus cet utilisateur.');</script>";
+            $html.= "<script>alert('Vous ne suivez plus cet utilisateur.');</script>";
         }
         return $html;
     }
