@@ -26,6 +26,7 @@ class NarcissiqueAction extends Action
 
         $htmlUsers = "";
 
+        //Pour chaque utilisateur
         foreach($users as $u){
 
             $htmlUsers .= <<<HTML
@@ -40,8 +41,7 @@ class NarcissiqueAction extends Action
         $stmt->execute();
         $scoreMoyen = $stmt->fetch();
 
-        $htmlScoreMoyen = "";
-
+        //On affecte le score moyen
         if($scoreMoyen['scoreMoyen'] == null){
             $htmlScoreMoyen = "Vous n'avez pas de notes pour vos touites";
         }else{

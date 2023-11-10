@@ -7,9 +7,11 @@ use touiteur\classes\ConnectionFactory;
 
 class EffacerTouiteAction extends Action
 {
+
     public function execute(): string
     {
 
+        // On récupère l'id du touite à effacer
         $touiteId = $_GET['touite_id'];
 
 

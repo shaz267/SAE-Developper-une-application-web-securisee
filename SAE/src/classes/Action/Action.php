@@ -5,6 +5,10 @@ namespace touiteur\classes\Action;
 abstract class Action
 {
 
+    /**
+     * Fonction abstract qui permet d'exécuter l'action
+     * @return string
+     */
     abstract public function execute(): string;
 
     /**

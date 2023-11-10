@@ -45,6 +45,10 @@ class Dispatcher
             $this->action = "";
     }
 
+    /**
+     * Fonction qui permet d'afficher la page d'accueil
+     * @return void
+     */
     public function run()
     {
         //Si l'utilisateur est connecté
@@ -119,9 +123,10 @@ class Dispatcher
                  </div>
                  </div>
                  HTML;
-        }
+        }//Si l'utilisateur n'est pas connecté
         else {
 
+            //On change l'action et d'autres choses en fonction de l'action demandée
             switch ($this->action) {
                 case 'TouiteDetailAction':
                     $tDA = new TouiteDetailAction();
@@ -156,6 +161,7 @@ class Dispatcher
                     break;
             }
 
+            //On affecte le code HTML à la variable $html
             $html = <<<HTML
                  <div class="touites" id="index">
                  <div class="liens">
@@ -175,9 +181,16 @@ class Dispatcher
                  HTML;
 
         }
+
+        //On affiche la page
         $this->renderPage($html);
     }
 
+    /**
+     * Fonction qui permet d'afficher la page
+     * @param string $html
+     * @return void
+     */
     private function renderPage(string $html)
     {
         if(isset($_POST['recherchertag'])){

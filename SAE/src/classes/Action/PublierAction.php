@@ -11,6 +11,7 @@ class PublierAction extends Action
     {
         //un utilisateur rédige un touite et le publie sur la plateforme.
 
+        //Si l'utilisateur n'a pas rentré le formulaire
         if ($_SERVER['REQUEST_METHOD'] === 'GET'){
 
             return <<<END
@@ -28,6 +29,7 @@ class PublierAction extends Action
             END;
         }
         else{
+            //On se connecte à la base de données
             $pdo = ConnectionFactory::makeConnection();
 
             //Partie filtrage du contenu du touite et extraction des hashtags
@@ -44,12 +46,10 @@ class PublierAction extends Action
 
 
 
-
             //On transforme les hashtags en liens
             foreach ($hashtags[0] as $key => $value) {
                 $contenu = str_replace($value, "<a href='?action=TagAction&hashtag=".substr($value, 1)."'>$value</a>", $contenu);
             }
-
 
 
             //----------------Partie insertion du touite dans la base de données-------------------
@@ -102,6 +102,7 @@ class PublierAction extends Action
 
         }
 
+        //Partie upload de l'image
         if($_SERVER['REQUEST_METHOD'] === 'POST' && $_FILES['image']['name'] != '') {
             $uploadDir = 'img/';
 
