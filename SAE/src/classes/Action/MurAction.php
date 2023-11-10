@@ -50,7 +50,6 @@ class MurAction extends Action
         $touites = $stmt->fetchAll();
 
         $html = "";
-        $htmlSup = "";
         //On parcourt les touites
         foreach ($touites as $touite) {
 
